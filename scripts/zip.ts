@@ -6,16 +6,18 @@
 
 import * as fs from 'fs';
 import * as path from 'path';
-import { execSync } from 'child_process';
+import { fileURLToPath } from 'url';
+import archiver from 'archiver';
 
 type Browser = 'chrome' | 'firefox';
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const DIST_DIR = path.resolve(__dirname, '../apps/extension/dist');
 
 /**
  * 建立 ZIP 檔案
  */
-function createZip(browser: Browser): void {
+async function createZip(browser: Browser): Promise<void> {
   const sourceDir = path.join(DIST_DIR, browser);
   const version = getVersion();
   const zipName = `ai-chat-saver-${version}-${browser}.zip`;
@@ -33,14 +35,28 @@ function createZip(browser: Browser): void {
 
   // 建立 ZIP
   console.log(`Creating ${zipName}...`);
-  execSync(`cd "${sourceDir}" && zip -r "${zipPath}" .`, {
-    stdio: 'inherit',
+
+  const output = fs.createWriteStream(zipPath);
+  const archive = archiver('zip', {
+    zlib: { level: 9 }, // Best compression
   });
 
-  const stats = fs.statSync(zipPath);
-  const sizeMB = (stats.size / 1024 / 1024).toFixed(2);
+  return new Promise((resolve, reject) => {
+    output.on('close', () => {
+      const stats = fs.statSync(zipPath);
+      const sizeMB = (stats.size / 1024 / 1024).toFixed(2);
+      console.log(`✅ Created: ${zipPath} (${sizeMB} MB)`);
+      resolve();
+    });
 
-  console.log(`✅ Created: ${zipPath} (${sizeMB} MB)`);
+    archive.on('error', (err) => {
+      reject(err);
+    });
+
+    archive.pipe(output);
+    archive.directory(sourceDir, false);
+    archive.finalize();
+  });
 }
 
 /**
@@ -55,19 +71,23 @@ function getVersion(): string {
 /**
  * 打包所有版本
  */
-function zipAll(): void {
-  createZip('chrome');
-  createZip('firefox');
+async function zipAll(): Promise<void> {
+  await createZip('chrome');
+  await createZip('firefox');
 }
 
 // CLI 執行
 const browser = process.argv[2] as Browser | 'all';
 
-if (browser === 'all') {
-  zipAll();
-} else if (['chrome', 'firefox'].includes(browser)) {
-  createZip(browser as Browser);
-} else {
-  console.log('Usage: ts-node zip.ts <chrome|firefox|all>');
+async function main() {
+  if (browser === 'all') {
+    await zipAll();
+  } else if (['chrome', 'firefox'].includes(browser)) {
+    await createZip(browser as Browser);
+  } else {
+    console.log('Usage: ts-node zip.ts <chrome|firefox|all>');
+  }
 }
+
+main().catch(console.error);
 
