@@ -22,15 +22,15 @@
 
 ## Constitution Check
 
-*GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
+_GATE: Must pass before Phase 0 research. Re-check after Phase 1 design._
 
-| Principle | Status | Notes |
-|-----------|--------|-------|
-| I. MVP | ✅ PASS | P1 (基本匯出) 可獨立交付；P2/P3 功能明確區分 |
-| II. 可測試性 | ✅ PASS | 每個平台提取器可獨立測試；轉換器套件有單元測試 |
+| Principle       | Status  | Notes                                                          |
+| --------------- | ------- | -------------------------------------------------------------- |
+| I. MVP          | ✅ PASS | P1 (基本匯出) 可獨立交付；P2/P3 功能明確區分                   |
+| II. 可測試性    | ✅ PASS | 每個平台提取器可獨立測試；轉換器套件有單元測試                 |
 | III. 高品質標準 | ✅ PASS | 使用 TypeScript 確保型別安全；ESLint + Prettier 統一程式碼風格 |
-| IV. 簡約設計 | ✅ PASS | 採用已驗證的 SaveMyPhind 模式；避免過早抽象雲端功能 |
-| V. 正體中文 | ✅ PASS | 所有文件、註解、UI 文字使用正體中文 |
+| IV. 簡約設計    | ✅ PASS | 採用已驗證的 SaveMyPhind 模式；避免過早抽象雲端功能            |
+| V. 正體中文     | ✅ PASS | 所有文件、註解、UI 文字使用正體中文                            |
 
 ## Project Structure
 
@@ -149,6 +149,7 @@ ai-chat-saver/
 ```
 
 **Structure Decision**: 採用 Turborepo monorepo 架構，將 `html-to-markdown` 轉換器與 `extraction-configs` 平台設定獨立為可重用套件。此設計：
+
 1. 符合使用者需求：轉換器作為獨立套件
 2. 便於未來擴展：新增平台只需在 `extraction-configs` 新增設定
 3. 支援測試隔離：各套件可獨立測試
@@ -234,8 +235,8 @@ export const chatgptConfig: ExtractionConfig = {
   messageConfig: {
     roleSelector: '[data-message-author-role]',
     roleAttribute: 'data-message-author-role',
-    roles: { assistant: 'ChatGPT', user: '使用者' }
-  }
+    roles: { assistant: 'ChatGPT', user: '使用者' },
+  },
 };
 ```
 
@@ -246,8 +247,10 @@ Chrome 使用 Manifest V3（Service Worker），Firefox 使用 Manifest V2（Bac
 ```typescript
 // scripts/manifest-generator.ts
 export function generateManifest(browser: 'chrome' | 'firefox'): Manifest {
-  const base = { /* 共用設定 */ };
-  return browser === 'chrome' 
+  const base = {
+    /* 共用設定 */
+  };
+  return browser === 'chrome'
     ? { ...base, manifest_version: 3, background: { service_worker: '...' } }
     : { ...base, manifest_version: 2, background: { scripts: ['...'] } };
 }
@@ -266,8 +269,12 @@ interface OutputDestination {
 }
 
 // 現在實作
-class LocalDownloadDestination implements OutputDestination { /* ... */ }
-class WebhookDestination implements OutputDestination { /* ... */ }
+class LocalDownloadDestination implements OutputDestination {
+  /* ... */
+}
+class WebhookDestination implements OutputDestination {
+  /* ... */
+}
 
 // 未來擴展
 // class GoogleDriveDestination implements OutputDestination { /* ... */ }
@@ -279,5 +286,5 @@ class WebhookDestination implements OutputDestination { /* ... */ }
 > 無需填寫：所有設計符合簡約原則，無違反 Constitution 的決策。
 
 | Violation | Why Needed | Simpler Alternative Rejected Because |
-|-----------|------------|-------------------------------------|
-| N/A | N/A | N/A |
+| --------- | ---------- | ------------------------------------ |
+| N/A       | N/A        | N/A                                  |

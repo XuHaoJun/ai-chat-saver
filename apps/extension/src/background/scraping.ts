@@ -48,10 +48,7 @@ async function ensureContentScriptLoaded(tabId: number): Promise<boolean> {
 /**
  * 從頁面提取內容
  */
-async function extractFromPage(
-  tabId: number,
-  platform: Platform
-): Promise<ExtractedContent> {
+async function extractFromPage(tabId: number, platform: Platform): Promise<ExtractedContent> {
   const config = getConfigForPlatform(platform);
 
   const response = await browser.tabs.sendMessage(tabId, {
@@ -263,4 +260,3 @@ export function calculateExtractionStats(result: ScrapingResult): {
     hasWarnings: false,
   };
 }
-

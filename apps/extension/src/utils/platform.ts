@@ -85,4 +85,3 @@ export function getPlatformDisplayName(platform: Platform): string {
 export function getSupportedPlatformNames(): string[] {
   return SUPPORTED_PLATFORMS.map(getPlatformDisplayName);
 }
-

@@ -84,4 +84,3 @@ export function useToast() {
     ToastComponent: toast ? <Toast {...toast} onClose={hideToast} /> : null,
   };
 }
-

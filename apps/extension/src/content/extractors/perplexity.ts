@@ -65,9 +65,7 @@ export class PerplexityExtractor implements BaseExtractor {
 
       return createSuccessResult(title, sections, contentContainer.innerHTML);
     } catch (error) {
-      return createErrorResult(
-        error instanceof Error ? error.message : '提取過程發生未知錯誤'
-      );
+      return createErrorResult(error instanceof Error ? error.message : '提取過程發生未知錯誤');
     }
   }
 
@@ -100,4 +98,3 @@ export class PerplexityExtractor implements BaseExtractor {
     return sources;
   }
 }
-

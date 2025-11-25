@@ -1,9 +1,9 @@
 /**
  * 輸出目的地契約
- * 
+ *
  * 定義可擴展的輸出目的地介面，
  * 支援未來新增雲端儲存等目的地
- * 
+ *
  * @module contracts/output-destination
  */
 
@@ -13,16 +13,16 @@
 
 /**
  * 輸出目的地介面
- * 
+ *
  * 所有輸出目的地都必須實作此介面。
  * 這是一個策略模式的實作，允許未來輕鬆新增新的輸出目的地。
- * 
+ *
  * @example
  * ```typescript
  * class LocalDownloadDestination implements OutputDestination {
  *   readonly name = 'local-download';
  *   enabled = true;
- *   
+ *
  *   async export(content, options) {
  *     // 實作下載邏輯
  *     return { success: true, destination: this.name };
@@ -33,7 +33,7 @@
 export interface OutputDestination {
   /**
    * 目的地唯一名稱
-   * 
+   *
    * 用於識別和設定
    */
   readonly name: string;
@@ -50,21 +50,21 @@ export interface OutputDestination {
 
   /**
    * 是否啟用
-   * 
+   *
    * 可由使用者設定控制
    */
   enabled: boolean;
 
   /**
    * 是否需要額外設定
-   * 
+   *
    * 例如 Webhook 需要 URL
    */
   readonly requiresConfiguration: boolean;
 
   /**
    * 執行匯出
-   * 
+   *
    * @param content - 要匯出的內容
    * @param options - 匯出選項
    * @returns 匯出結果
@@ -73,7 +73,7 @@ export interface OutputDestination {
 
   /**
    * 驗證設定是否有效
-   * 
+   *
    * @returns 驗證結果
    */
   validateConfiguration?(): ConfigurationValidation;
@@ -94,7 +94,7 @@ export interface ExportContent {
 
   /**
    * 媒體資產
-   * 
+   *
    * 如果有媒體檔案，會自動產生 ZIP
    */
   assets: Asset[];
@@ -246,13 +246,13 @@ export interface ConfigurationValidation {
 
 /**
  * 輸出管理器介面
- * 
+ *
  * 管理所有輸出目的地，協調匯出流程
  */
 export interface OutputManager {
   /**
    * 註冊新的輸出目的地
-   * 
+   *
    * @param destination - 輸出目的地實例
    */
   register(destination: OutputDestination): void;
@@ -269,14 +269,14 @@ export interface OutputManager {
 
   /**
    * 根據名稱取得目的地
-   * 
+   *
    * @param name - 目的地名稱
    */
   getDestination(name: string): OutputDestination | undefined;
 
   /**
    * 執行匯出到所有已啟用的目的地
-   * 
+   *
    * @param content - 要匯出的內容
    * @param options - 匯出選項
    * @returns 所有目的地的匯出結果
@@ -285,7 +285,7 @@ export interface OutputManager {
 
   /**
    * 執行匯出到指定目的地
-   * 
+   *
    * @param destinationName - 目的地名稱
    * @param content - 要匯出的內容
    * @param options - 匯出選項
@@ -307,7 +307,7 @@ export interface OutputManager {
 export interface LocalDownloadConfig {
   /**
    * 是否自動開啟下載資料夾
-   * 
+   *
    * @default false
    */
   openFolder?: boolean;
@@ -324,7 +324,7 @@ export interface WebhookConfig {
 
   /**
    * HTTP 方法
-   * 
+   *
    * @default 'POST'
    */
   method?: 'POST' | 'PUT';
@@ -336,10 +336,10 @@ export interface WebhookConfig {
 
   /**
    * 請求格式
-   * 
+   *
    * - 'multipart': multipart/form-data（預設）
    * - 'json': application/json
-   * 
+   *
    * @default 'multipart'
    */
   format?: 'multipart' | 'json';
@@ -410,10 +410,7 @@ export function createSuccessResult(
 /**
  * 建立標準匯出結果（失敗）
  */
-export function createErrorResult(
-  destination: string,
-  error: string
-): ExportResult {
+export function createErrorResult(destination: string, error: string): ExportResult {
   return {
     success: false,
     destination,
@@ -423,7 +420,7 @@ export function createErrorResult(
 
 /**
  * 判斷是否需要產生 ZIP
- * 
+ *
  * @param content - 匯出內容
  * @returns 是否需要 ZIP
  */
@@ -433,11 +430,10 @@ export function shouldCreateZip(content: ExportContent): boolean {
 
 /**
  * 取得匯出檔案的副檔名
- * 
+ *
  * @param content - 匯出內容
  * @returns 副檔名（不含點）
  */
 export function getFileExtension(content: ExportContent): string {
   return shouldCreateZip(content) ? 'zip' : 'md';
 }
-

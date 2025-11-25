@@ -54,9 +54,7 @@ export function FilenameTemplateInput({ value, onChange }: FilenameTemplateInput
           placeholder="%Y-%M-%D_%h-%m-%s_%W_%T"
           className={!isValid ? 'border-destructive' : ''}
         />
-        {!isValid && (
-          <p className="text-sm text-destructive">請輸入有效的檔名範本</p>
-        )}
+        {!isValid && <p className="text-sm text-destructive">請輸入有效的檔名範本</p>}
       </div>
 
       {/* 預覽 */}
@@ -74,7 +72,7 @@ export function FilenameTemplateInput({ value, onChange }: FilenameTemplateInput
               key={code}
               type="button"
               onClick={() => handleInsertPlaceholder(code)}
-              className="inline-flex items-center rounded-md bg-secondary px-2 py-1 text-xs font-mono hover:bg-secondary/80"
+              className="inline-flex items-center rounded-md bg-secondary px-2 py-1 font-mono text-xs hover:bg-secondary/80"
               title={description}
             >
               {code}
@@ -92,7 +90,9 @@ export function FilenameTemplateInput({ value, onChange }: FilenameTemplateInput
           {PLACEHOLDERS.map(({ code, description, example }) => (
             <div key={code} className="flex gap-2">
               <code className="font-mono">{code}</code>
-              <span>- {description}（例：{example}）</span>
+              <span>
+                - {description}（例：{example}）
+              </span>
             </div>
           ))}
         </div>
@@ -100,4 +100,3 @@ export function FilenameTemplateInput({ value, onChange }: FilenameTemplateInput
     </div>
   );
 }
-

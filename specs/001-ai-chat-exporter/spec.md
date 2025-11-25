@@ -5,7 +5,7 @@
 **Status**: Draft  
 **Input**: User description: "開發 chrome/firefox extension, Download your ChatGPT, Claude, Perplexity, deepwiki, gemini and Phind conversations into markdown files"
 
-## User Scenarios & Testing *(mandatory)*
+## User Scenarios & Testing _(mandatory)_
 
 ### User Story 1 - Export Single Conversation (Priority: P1)
 
@@ -88,7 +88,7 @@ The extension should gracefully handle when AI chat platforms update their user 
 - What happens when a platform requires authentication and the user is logged out?
 - How does the extension handle rate limiting or platform restrictions on content access?
 
-## Requirements *(mandatory)*
+## Requirements _(mandatory)_
 
 ### Functional Requirements
 
@@ -115,14 +115,14 @@ The extension should gracefully handle when AI chat platforms update their user 
 - **FR-020**: Extension MUST support exporting conversations with embedded media references by downloading media files and including local file paths in the markdown output
 - **FR-021**: Extension MUST handle conversations of varying lengths (from single messages to thousands of messages)
 
-### Key Entities *(include if feature involves data)*
+### Key Entities _(include if feature involves data)_
 
 - **Conversation**: Represents a chat session between user and AI, containing multiple messages with timestamps, roles (user/AI), and content. May include metadata like title, platform, and URL.
 - **Export Configuration**: User preferences including filename template, output format options, content inclusion settings (sources, metadata, formatting), and platform-specific extraction rules.
 - **Extracted Content**: Structured representation of conversation data including title, messages array, sources (if applicable), and metadata, ready for markdown conversion.
 - **Markdown File**: Final output containing formatted conversation content, metadata header, and properly structured markdown elements (headers, code blocks, lists, etc.).
 
-## Success Criteria *(mandatory)*
+## Success Criteria _(mandatory)_
 
 ### Measurable Outcomes
 

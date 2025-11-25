@@ -49,9 +49,7 @@ function handleMessage(
 /**
  * 處理提取請求
  */
-async function handleExtractionRequest(
-  message: ExtractContentMessage
-): Promise<ExtractedContent> {
+async function handleExtractionRequest(message: ExtractContentMessage): Promise<ExtractedContent> {
   const { platform, pageConfig } = message;
 
   try {
@@ -66,9 +64,7 @@ async function handleExtractionRequest(
     const result = performExtraction(platform, pageConfig);
     return result;
   } catch (error) {
-    return createErrorResult(
-      error instanceof Error ? error.message : '提取過程發生未知錯誤'
-    );
+    return createErrorResult(error instanceof Error ? error.message : '提取過程發生未知錯誤');
   }
 }
 
@@ -85,4 +81,3 @@ function init(): void {
 
 // 初始化
 init();
-

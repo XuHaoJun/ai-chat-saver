@@ -12,10 +12,7 @@ import type { ExtractionConfig } from '../types';
 export const claudeConfig: ExtractionConfig = {
   platform: 'claude',
   domainName: 'Claude',
-  allowedUrls: [
-    'claude.ai/chat/',
-    'claude.ai/project/',
-  ],
+  allowedUrls: ['claude.ai/chat/', 'claude.ai/project/'],
   pageTitle: {
     selector: '[data-testid="chat-title"]',
     fallbackSelectors: ['title', 'h1'],
@@ -33,4 +30,3 @@ export const claudeConfig: ExtractionConfig = {
     attachmentsSelector: '[data-testid="file-attachment"]',
   },
 };
-

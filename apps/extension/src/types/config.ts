@@ -77,4 +77,3 @@ export const DEFAULT_USER_CONFIG: UserConfig = {
     webhook: false,
   },
 };
-

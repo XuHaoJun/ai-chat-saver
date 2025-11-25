@@ -14,17 +14,10 @@ import type { ExtractionConfig } from '../types';
 export const geminiConfig: ExtractionConfig = {
   platform: 'gemini',
   domainName: 'Gemini',
-  allowedUrls: [
-    'gemini.google.com/app/',
-    'gemini.google.com/u/',
-  ],
+  allowedUrls: ['gemini.google.com/app/', 'gemini.google.com/u/'],
   pageTitle: {
     selector: 'title',
-    fallbackSelectors: [
-      '[data-test-id="conversation-title"]',
-      'h1',
-      '[class*="title"]',
-    ],
+    fallbackSelectors: ['[data-test-id="conversation-title"]', 'h1', '[class*="title"]'],
     description: '對話標題',
   },
   contentSelector: '.conversation-container',
@@ -39,4 +32,3 @@ export const geminiConfig: ExtractionConfig = {
     },
   },
 };
-

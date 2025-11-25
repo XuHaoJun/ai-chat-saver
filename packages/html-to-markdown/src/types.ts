@@ -57,4 +57,3 @@ export interface ConversionResult {
   /** 提取的連結列表 */
   links: Array<{ text: string; url: string }>;
 }
-

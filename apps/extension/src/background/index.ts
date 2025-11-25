@@ -91,7 +91,5 @@ browser.action.onClicked.addListener(async (tab) => {
   }
 });
 
-
 // 標記 Service Worker 已載入
 console.log('AI Chat Saver Background Script 已載入');
-

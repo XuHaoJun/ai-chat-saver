@@ -17,22 +17,25 @@ export const convertLinks: ConversionRule = (html, options) => {
   let result = html;
 
   // 處理帶 href 的連結
-  result = result.replace(/<a[^>]*href=["']([^"']*)["'][^>]*>([\s\S]*?)<\/a>/gi, (_, href, text) => {
-    const linkText = text.replace(/<[^>]+>/g, '').trim();
-    const url = href.trim();
+  result = result.replace(
+    /<a[^>]*href=["']([^"']*)["'][^>]*>([\s\S]*?)<\/a>/gi,
+    (_, href, text) => {
+      const linkText = text.replace(/<[^>]+>/g, '').trim();
+      const url = href.trim();
 
-    // 如果連結文字和 URL 相同，只顯示 URL
-    if (linkText === url) {
-      return `<${url}>`;
+      // 如果連結文字和 URL 相同，只顯示 URL
+      if (linkText === url) {
+        return `<${url}>`;
+      }
+
+      // 如果沒有連結文字，使用 URL
+      if (!linkText) {
+        return `<${url}>`;
+      }
+
+      return `[${linkText}](${url})`;
     }
-
-    // 如果沒有連結文字，使用 URL
-    if (!linkText) {
-      return `<${url}>`;
-    }
-
-    return `[${linkText}](${url})`;
-  });
+  );
 
   // 處理沒有 href 的連結（移除標籤，保留內容）
   result = result.replace(/<a[^>]*>([\s\S]*?)<\/a>/gi, (_, text) => {
@@ -85,4 +88,3 @@ export const convertLinksAndImages: ConversionRule = (html, options) => {
   result = convertLinks(result, options);
   return result;
 };
-

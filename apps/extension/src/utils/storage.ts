@@ -117,4 +117,3 @@ export function validateWebhookUrl(url: string): boolean {
     return false;
   }
 }
-

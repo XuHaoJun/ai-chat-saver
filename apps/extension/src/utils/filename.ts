@@ -116,4 +116,3 @@ export function validateFilenameTemplate(template: string): boolean {
   // 至少要有一個佔位符或一些固定文字
   return template.length !== remaining.length || remaining.trim().length > 0;
 }
-

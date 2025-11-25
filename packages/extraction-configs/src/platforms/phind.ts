@@ -12,10 +12,7 @@ import type { ExtractionConfig } from '../types';
 export const phindConfig: ExtractionConfig = {
   platform: 'phind',
   domainName: 'Phind',
-  allowedUrls: [
-    'phind.com/search',
-    'phind.com/agent',
-  ],
+  allowedUrls: ['phind.com/search', 'phind.com/agent'],
   pageTitle: {
     selector: 'h1',
     fallbackSelectors: ['title', '.question-text'],
@@ -37,4 +34,3 @@ export const phindConfig: ExtractionConfig = {
     ],
   },
 };
-

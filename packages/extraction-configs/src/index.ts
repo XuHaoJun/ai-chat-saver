@@ -60,4 +60,3 @@ export const PLATFORM_CONFIGS: Record<Platform, ExtractionConfig> = {
 export function getConfigForPlatform(platform: Platform): ExtractionConfig {
   return PLATFORM_CONFIGS[platform];
 }
-

@@ -1,5 +1,12 @@
 import * as React from 'react';
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from './components/ui/card';
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+  CardFooter,
+} from './components/ui/card';
 import { Button } from './components/ui/button';
 import { useToast } from './components/ui/toast';
 import { FilenameTemplateInput } from './components/FilenameTemplateInput';
@@ -8,7 +15,8 @@ import { ContentOptionsSection } from './components/ContentOptionsSection';
 import { useStorage } from './hooks/useStorage';
 
 export function App() {
-  const { config, loading, saving, error, updateField, updateFields, resetToDefaults } = useStorage();
+  const { config, loading, saving, error, updateField, updateFields, resetToDefaults } =
+    useStorage();
   const { showToast, ToastComponent } = useToast();
 
   // 處理儲存
@@ -44,25 +52,19 @@ export function App() {
         {/* Header */}
         <div className="mb-8 text-center">
           <h1 className="text-3xl font-bold tracking-tight">AI Chat Saver</h1>
-          <p className="mt-2 text-muted-foreground">
-            設定您的對話匯出偏好
-          </p>
+          <p className="mt-2 text-muted-foreground">設定您的對話匯出偏好</p>
         </div>
 
         {/* 錯誤訊息 */}
         {error && (
-          <div className="mb-4 rounded-md bg-destructive/10 p-4 text-destructive">
-            {error}
-          </div>
+          <div className="mb-4 rounded-md bg-destructive/10 p-4 text-destructive">{error}</div>
         )}
 
         {/* 檔名設定 */}
         <Card className="mb-6">
           <CardHeader>
             <CardTitle>檔名設定</CardTitle>
-            <CardDescription>
-              自訂匯出檔案的命名方式
-            </CardDescription>
+            <CardDescription>自訂匯出檔案的命名方式</CardDescription>
           </CardHeader>
           <CardContent>
             <FilenameTemplateInput
@@ -76,9 +78,7 @@ export function App() {
         <Card className="mb-6">
           <CardHeader>
             <CardTitle>輸出設定</CardTitle>
-            <CardDescription>
-              選擇對話的匯出方式
-            </CardDescription>
+            <CardDescription>選擇對話的匯出方式</CardDescription>
           </CardHeader>
           <CardContent>
             <OutputOptionsSection
@@ -104,9 +104,7 @@ export function App() {
         <Card className="mb-6">
           <CardHeader>
             <CardTitle>內容設定</CardTitle>
-            <CardDescription>
-              自訂匯出內容的格式
-            </CardDescription>
+            <CardDescription>自訂匯出內容的格式</CardDescription>
           </CardHeader>
           <CardContent>
             <ContentOptionsSection
@@ -153,9 +151,7 @@ export function App() {
 
         {/* 頁尾 */}
         <div className="mt-8 text-center text-sm text-muted-foreground">
-          <p>
-            支援平台：ChatGPT、Claude、Perplexity、Phind、deepwiki、Gemini
-          </p>
+          <p>支援平台：ChatGPT、Claude、Perplexity、Phind、deepwiki、Gemini</p>
           <p className="mt-1">
             版本 0.1.0 |{' '}
             <a
@@ -175,4 +171,3 @@ export function App() {
     </div>
   );
 }
-

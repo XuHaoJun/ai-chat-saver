@@ -39,10 +39,7 @@ export interface SelectorResult {
  * @param fallbacks - 備選選擇器
  * @returns 元素或 null
  */
-export function queryWithFallback(
-  selector: string,
-  fallbacks?: string[]
-): Element | null {
+export function queryWithFallback(selector: string, fallbacks?: string[]): Element | null {
   const result = queryWithFallbackDetailed(selector, fallbacks);
   return result.element;
 }
@@ -54,10 +51,7 @@ export function queryWithFallback(
  * @param fallbacks - 備選選擇器
  * @returns 詳細結果，包含使用的選擇器資訊
  */
-export function queryWithFallbackDetailed(
-  selector: string,
-  fallbacks?: string[]
-): SelectorResult {
+export function queryWithFallbackDetailed(selector: string, fallbacks?: string[]): SelectorResult {
   let element = document.querySelector(selector);
 
   if (element) {
@@ -79,10 +73,7 @@ export function queryWithFallbackDetailed(
 /**
  * 嘗試使用選擇器取得所有元素
  */
-export function queryAllWithFallback(
-  selector: string,
-  fallbacks?: string[]
-): NodeListOf<Element> {
+export function queryAllWithFallback(selector: string, fallbacks?: string[]): NodeListOf<Element> {
   let elements = document.querySelectorAll(selector);
 
   if (elements.length === 0 && fallbacks) {
@@ -161,4 +152,3 @@ export function createErrorResult(error: string): ExtractedContent {
     error,
   };
 }
-

@@ -162,9 +162,9 @@ export const newplatformConfig: ExtractionConfig = {
     roleAttribute: 'data-role',
     roles: {
       user: '使用者',
-      assistant: 'AI'
-    }
-  }
+      assistant: 'AI',
+    },
+  },
 };
 ```
 
@@ -179,7 +179,7 @@ export * from './platforms/newplatform';
 ```typescript
 export const EXTRACTION_ALLOWED_PAGES = {
   // ...existing
-  NewPlatform: 'newplatform.com/chat'
+  NewPlatform: 'newplatform.com/chat',
 };
 ```
 
@@ -299,6 +299,7 @@ pnpm build
 ### Q: 擴充功能載入後圖示沒有反應
 
 A: 檢查以下項目：
+
 1. 確認在支援的平台頁面上（ChatGPT、Claude 等）
 2. 檢查瀏覽器主控台是否有錯誤訊息
 3. 確認 Content Script 已正確注入
@@ -318,10 +319,7 @@ A: 確認 `tailwind.config.ts` 的 `content` 設定正確：
 ```typescript
 // apps/extension/tailwind.config.ts
 export default {
-  content: [
-    './src/**/*.{ts,tsx}',
-    '../../packages/*/src/**/*.{ts,tsx}'
-  ],
+  content: ['./src/**/*.{ts,tsx}', '../../packages/*/src/**/*.{ts,tsx}'],
   // ...
 };
 ```
@@ -336,4 +334,3 @@ export default {
 - [Firefox Add-ons 開發指南](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions)
 - [shadcn/ui 元件庫](https://ui.shadcn.com/)
 - [Tailwind CSS v4](https://tailwindcss.com/docs)
-

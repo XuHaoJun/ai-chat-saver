@@ -67,4 +67,3 @@ export const convertLists: ConversionRule = (html, options) => {
   result = convertOrderedLists(result, options);
   return result;
 };
-

@@ -53,11 +53,7 @@ export interface GenericSection {
 /**
  * 提取區塊聯合型別
  */
-export type ExtractedSection =
-  | MessageSection
-  | SearchQASection
-  | ArticleSection
-  | GenericSection;
+export type ExtractedSection = MessageSection | SearchQASection | ArticleSection | GenericSection;
 
 /**
  * 提取資料
@@ -108,4 +104,3 @@ export interface ExportResult {
   destination: string;
   error?: string;
 }
-

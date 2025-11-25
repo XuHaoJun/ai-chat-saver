@@ -165,4 +165,3 @@ export const convertTextFormatting: ConversionRule = (html, options) => {
   result = convertHorizontalRules(result, options);
   return result;
 };
-

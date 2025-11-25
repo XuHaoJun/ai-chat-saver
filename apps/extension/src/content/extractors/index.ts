@@ -46,10 +46,7 @@ export function getExtractor(platform: Platform): BaseExtractor | null {
  * @param config - 提取設定
  * @returns 提取結果
  */
-export function performExtraction(
-  platform: Platform,
-  config: ExtractionConfig
-): ExtractedContent {
+export function performExtraction(platform: Platform, config: ExtractionConfig): ExtractedContent {
   const extractor = getExtractor(platform);
 
   if (!extractor) {
@@ -77,4 +74,3 @@ export {
   createSuccessResult,
   createErrorResult,
 } from './base';
-

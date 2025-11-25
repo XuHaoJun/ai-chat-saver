@@ -90,4 +90,3 @@ export const convertInlineCode: ConversionRule = (html) => {
     return `\`${code}\``;
   });
 };
-

@@ -10,11 +10,7 @@ import { convertCodeBlocks, convertInlineCode } from './rules/code';
 import { convertLists } from './rules/lists';
 import { convertTables } from './rules/tables';
 import { convertLinksAndImages } from './rules/links';
-import {
-  convertTextFormatting,
-  removeRemainingTags,
-  cleanupOutput,
-} from './rules/text';
+import { convertTextFormatting, removeRemainingTags, cleanupOutput } from './rules/text';
 import type { ConvertOptions, ConversionResult } from './types';
 import { DEFAULT_OPTIONS } from './types';
 
@@ -144,4 +140,3 @@ export function htmlToMarkdownWithResources(
     links,
   };
 }
-

@@ -111,4 +111,3 @@ if (browser === 'all') {
   console.log('  firefox - Build for Firefox (Manifest V2)');
   console.log('  all     - Build for all browsers');
 }
-

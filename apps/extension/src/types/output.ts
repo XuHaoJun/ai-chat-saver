@@ -120,4 +120,3 @@ export interface OutputDestination {
   /** 執行匯出 */
   export(content: ExportContent, options: ExportOptions): Promise<ExportResult>;
 }
-

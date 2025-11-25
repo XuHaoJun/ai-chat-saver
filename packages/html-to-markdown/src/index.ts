@@ -32,4 +32,3 @@ export {
   removeRemainingTags,
   cleanupOutput,
 } from './rules/text';
-

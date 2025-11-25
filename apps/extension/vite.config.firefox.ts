@@ -15,7 +15,8 @@ function generateFirefoxManifestPlugin(): Plugin {
         manifest_version: 2,
         name: 'AI Chat Saver',
         version: '0.1.0',
-        description: '從 ChatGPT、Claude、Perplexity、deepwiki、Gemini、Phind 匯出對話為 Markdown 檔案',
+        description:
+          '從 ChatGPT、Claude、Perplexity、deepwiki、Gemini、Phind 匯出對話為 Markdown 檔案',
         icons: {
           '16': 'icons/icon-16.png',
           '48': 'icons/icon-48.png',
@@ -74,10 +75,7 @@ function generateFirefoxManifestPlugin(): Plugin {
         },
       };
 
-      fs.writeFileSync(
-        resolve(outDir, 'manifest.json'),
-        JSON.stringify(manifest, null, 2)
-      );
+      fs.writeFileSync(resolve(outDir, 'manifest.json'), JSON.stringify(manifest, null, 2));
       console.log('Generated Firefox manifest.json');
     },
   };

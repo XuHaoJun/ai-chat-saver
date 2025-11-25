@@ -83,7 +83,9 @@ export const convertTables: ConversionRule = (html) => {
     // 表身
     for (let i = 1; i < rows.length; i++) {
       const row = rows[i]!;
-      lines.push('| ' + row.map((cell, j) => (cell || '').padEnd(colWidths[j] ?? 3)).join(' | ') + ' |');
+      lines.push(
+        '| ' + row.map((cell, j) => (cell || '').padEnd(colWidths[j] ?? 3)).join(' | ') + ' |'
+      );
     }
 
     return '\n' + lines.join('\n') + '\n\n';
@@ -91,4 +93,3 @@ export const convertTables: ConversionRule = (html) => {
 
   return result;
 };
-

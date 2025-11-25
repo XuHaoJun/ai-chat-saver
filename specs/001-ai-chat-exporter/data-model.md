@@ -47,22 +47,22 @@
 interface Conversation {
   /** 對話唯一識別碼（可選，來自平台） */
   id?: string;
-  
+
   /** 對話標題 */
   title: string;
-  
+
   /** 來源平台 */
   platform: Platform;
-  
+
   /** 原始頁面 URL */
   sourceUrl: string;
-  
+
   /** 提取時間 */
   extractedAt: Date;
-  
+
   /** 訊息陣列 */
   messages: Message[];
-  
+
   /** 對話 metadata（可選） */
   metadata?: ConversationMetadata;
 }
@@ -73,13 +73,13 @@ interface Conversation {
 interface ConversationMetadata {
   /** 對話建立時間（如果平台提供） */
   createdAt?: Date;
-  
+
   /** 對話更新時間（如果平台提供） */
   updatedAt?: Date;
-  
+
   /** 使用的模型（如果平台提供） */
   model?: string;
-  
+
   /** 其他平台特定資訊 */
   extra?: Record<string, unknown>;
 }
@@ -87,13 +87,7 @@ interface ConversationMetadata {
 /**
  * 支援的平台
  */
-type Platform = 
-  | 'chatgpt'
-  | 'claude'
-  | 'perplexity'
-  | 'phind'
-  | 'deepwiki'
-  | 'gemini';
+type Platform = 'chatgpt' | 'claude' | 'perplexity' | 'phind' | 'deepwiki' | 'gemini';
 ```
 
 ### 2. Message（訊息）
@@ -109,22 +103,22 @@ type Platform =
 interface Message {
   /** 訊息索引（在對話中的順序） */
   index: number;
-  
+
   /** 訊息角色 */
   role: MessageRole;
-  
+
   /** 訊息內容（HTML 或純文字） */
   content: string;
-  
+
   /** 內容格式 */
   contentFormat: 'html' | 'text' | 'markdown';
-  
+
   /** 訊息時間戳（如果平台提供） */
   timestamp?: Date;
-  
+
   /** 附加檔案/輸入（如 Claude 的檔案上傳） */
   attachments?: Attachment[];
-  
+
   /** 來源引用（如 Perplexity 的搜尋結果） */
   sources?: Source[];
 }
@@ -140,13 +134,13 @@ type MessageRole = 'user' | 'assistant' | 'system';
 interface Attachment {
   /** 檔案類型 */
   type: 'file' | 'image' | 'code';
-  
+
   /** 檔案名稱 */
   filename: string;
-  
+
   /** 檔案 URL（如果可存取） */
   url?: string;
-  
+
   /** 檔案說明 */
   description?: string;
 }
@@ -157,10 +151,10 @@ interface Attachment {
 interface Source {
   /** 來源標題 */
   title: string;
-  
+
   /** 來源 URL */
   url: string;
-  
+
   /** 來源片段（可選） */
   snippet?: string;
 }
@@ -179,28 +173,28 @@ interface Source {
 interface ExtractionConfig {
   /** 平台顯示名稱 */
   domainName: string;
-  
+
   /** 允許提取的 URL 模式 */
   allowedUrls: string[];
-  
+
   /** 頁面標題選擇器 */
   pageTitle: SelectorConfig;
-  
+
   /** 對話內容容器選擇器 */
   contentSelector: string;
-  
+
   /** 提取類型 */
   extractionType: ExtractionType;
-  
+
   /** 訊息設定（用於 message-list 類型） */
   messageConfig?: MessageExtractionConfig;
-  
+
   /** 區塊設定（用於 search-sections 類型） */
   sectionConfig?: SectionExtractionConfig;
-  
+
   /** 來源提取設定 */
   sourcesExtraction?: SourcesExtractionConfig;
-  
+
   /** 提取前後動作（如點擊展開） */
   actions?: ExtractionActions;
 }
@@ -208,11 +202,11 @@ interface ExtractionConfig {
 /**
  * 提取類型
  */
-type ExtractionType = 
-  | 'message-list'      // 訊息列表（ChatGPT, Claude）
-  | 'search-sections'   // 搜尋區塊（Perplexity, Phind）
+type ExtractionType =
+  | 'message-list' // 訊息列表（ChatGPT, Claude）
+  | 'search-sections' // 搜尋區塊（Perplexity, Phind）
   | 'articles-sections' // 文章區塊
-  | 'full-page';        // 全頁面
+  | 'full-page'; // 全頁面
 
 /**
  * 選擇器設定
@@ -220,7 +214,7 @@ type ExtractionType =
 interface SelectorConfig {
   /** CSS 選擇器 */
   selector: string;
-  
+
   /** 多重選擇器（依序嘗試） */
   fallbackSelectors?: string[];
 }
@@ -231,25 +225,25 @@ interface SelectorConfig {
 interface MessageExtractionConfig {
   /** 角色選擇器 */
   roleSelector?: string;
-  
+
   /** 角色屬性名稱 */
   roleAttribute?: string;
-  
+
   /** 內容選擇器 */
   contentSelector?: string;
-  
+
   /** 使用者訊息選擇器 */
   userSelector?: string;
-  
+
   /** AI 訊息選擇器 */
   assistantSelector?: string;
-  
+
   /** 角色對應表 */
   roles: {
     user: string;
     assistant: string;
   };
-  
+
   /** 附件選擇器 */
   attachmentsSelector?: string;
 }
@@ -260,10 +254,10 @@ interface MessageExtractionConfig {
 interface SectionExtractionConfig {
   /** 使用者問題選擇器 */
   userQuestionSelector: string;
-  
+
   /** AI 回答選擇器 */
   aiAnswerSelector: string;
-  
+
   /** AI 模型選擇器 */
   aiModelSelector?: string;
 }
@@ -274,7 +268,7 @@ interface SectionExtractionConfig {
 interface SourcesExtractionConfig {
   /** 選擇器設定陣列 */
   selectors: SourceSelectorConfig[];
-  
+
   /** 提取後動作（如關閉彈窗） */
   afterAction?: string;
 }
@@ -285,16 +279,16 @@ interface SourcesExtractionConfig {
 interface SourceSelectorConfig {
   /** 開啟來源面板的動作 */
   open?: ActionConfig[];
-  
+
   /** 關閉來源面板的動作 */
   close?: ActionConfig[];
-  
+
   /** 來源元素選擇器 */
   selector: string;
-  
+
   /** 提取類型 */
   extractionType: 'list' | 'tile-list';
-  
+
   /** 選擇器作用範圍 */
   scope?: 'content' | 'document';
 }
@@ -305,10 +299,10 @@ interface SourceSelectorConfig {
 interface ActionConfig {
   /** 點擊選擇器 */
   selector: string;
-  
+
   /** 作用範圍 */
   scope: 'content' | 'document';
-  
+
   /** 等待時間（毫秒） */
   wait?: number;
 }
@@ -322,7 +316,7 @@ interface ExtractionActions {
     type: 'click';
     selector: string;
   };
-  
+
   /** 提取後動作 */
   afterExtraction?: {
     type: 'click' | 'click_act_close';
@@ -344,10 +338,10 @@ interface ExtractionActions {
 interface ExportConfig {
   /** 檔名範本 */
   filenameTemplate: string;
-  
+
   /** 輸出選項 */
   outputOptions: OutputOptions;
-  
+
   /** 內容選項 */
   contentOptions: ContentOptions;
 }
@@ -358,10 +352,10 @@ interface ExportConfig {
 interface OutputOptions {
   /** 啟用本地下載 */
   localDownload: boolean;
-  
+
   /** 啟用 Webhook */
   webhook: boolean;
-  
+
   /** Webhook URL（如果啟用） */
   webhookUrl?: string;
 }
@@ -372,13 +366,13 @@ interface OutputOptions {
 interface ContentOptions {
   /** 包含 metadata 標頭 */
   includeMetadata: boolean;
-  
+
   /** 包含來源引用 */
   includeSources: boolean;
-  
+
   /** 包含附件資訊 */
   includeAttachments: boolean;
-  
+
   /** 下載媒體檔案 */
   downloadMedia: boolean;
 }
@@ -386,16 +380,16 @@ interface ContentOptions {
 /**
  * 檔名範本佔位符
  */
-type FilenameTemplatePlaceholder = 
-  | '%Y'  // 年（四位）
-  | '%M'  // 月（兩位）
-  | '%D'  // 日（兩位）
-  | '%h'  // 時（兩位，24 小時制）
-  | '%m'  // 分（兩位）
-  | '%s'  // 秒（兩位）
-  | '%t'  // Unix 時間戳
-  | '%W'  // 平台名稱
-  | '%H'  // 主機名稱
+type FilenameTemplatePlaceholder =
+  | '%Y' // 年（四位）
+  | '%M' // 月（兩位）
+  | '%D' // 日（兩位）
+  | '%h' // 時（兩位，24 小時制）
+  | '%m' // 分（兩位）
+  | '%s' // 秒（兩位）
+  | '%t' // Unix 時間戳
+  | '%W' // 平台名稱
+  | '%H' // 主機名稱
   | '%T'; // 對話標題（清理後）
 ```
 
@@ -412,10 +406,10 @@ type FilenameTemplatePlaceholder =
 interface ExtractedContent {
   /** 是否成功 */
   success: boolean;
-  
+
   /** 資料（成功時） */
   data?: ExtractedData;
-  
+
   /** 錯誤訊息（失敗時） */
   error?: string;
 }
@@ -426,10 +420,10 @@ interface ExtractedContent {
 interface ExtractedData {
   /** 頁面標題 */
   title: string;
-  
+
   /** 原始 HTML（備用） */
   html: string;
-  
+
   /** 結構化區塊 */
   sections: ExtractedSection[];
 }
@@ -437,11 +431,7 @@ interface ExtractedData {
 /**
  * 提取區塊
  */
-type ExtractedSection = 
-  | MessageSection
-  | SearchQASection
-  | ArticleSection
-  | GenericSection;
+type ExtractedSection = MessageSection | SearchQASection | ArticleSection | GenericSection;
 
 /**
  * 訊息區塊
@@ -496,10 +486,10 @@ interface GenericSection {
 interface ExportContent {
   /** Markdown 內容 */
   markdown: string;
-  
+
   /** 媒體資產 */
   assets: Asset[];
-  
+
   /** 匯出 metadata */
   metadata: ExportMetadata;
 }
@@ -510,13 +500,13 @@ interface ExportContent {
 interface Asset {
   /** 檔案名稱 */
   filename: string;
-  
+
   /** 檔案類型 */
   type: 'image' | 'file';
-  
+
   /** 檔案資料（Blob 或 ArrayBuffer） */
   data: Blob | ArrayBuffer;
-  
+
   /** 原始 URL */
   sourceUrl: string;
 }
@@ -527,16 +517,16 @@ interface Asset {
 interface ExportMetadata {
   /** 平台名稱 */
   platform: string;
-  
+
   /** 對話標題 */
   title: string;
-  
+
   /** 原始 URL */
   sourceUrl: string;
-  
+
   /** 匯出時間 */
   exportedAt: Date;
-  
+
   /** 訊息數量 */
   messageCount: number;
 }
@@ -547,7 +537,7 @@ interface ExportMetadata {
 interface ExportOptions {
   /** 檔案名稱（不含副檔名） */
   filename: string;
-  
+
   /** 是否包含 metadata */
   includeMetadata: boolean;
 }
@@ -558,13 +548,13 @@ interface ExportOptions {
 interface ExportResult {
   /** 是否成功 */
   success: boolean;
-  
+
   /** 目的地名稱 */
   destination: string;
-  
+
   /** 錯誤訊息（失敗時） */
   error?: string;
-  
+
   /** 額外資訊 */
   details?: Record<string, unknown>;
 }
@@ -575,10 +565,10 @@ interface ExportResult {
 interface OutputDestination {
   /** 目的地名稱 */
   readonly name: string;
-  
+
   /** 是否啟用 */
   enabled: boolean;
-  
+
   /** 執行匯出 */
   export(content: ExportContent, options: ExportOptions): Promise<ExportResult>;
 }
@@ -633,7 +623,7 @@ interface OutputDestination {
 ### 狀態型別
 
 ```typescript
-type ExtractionState = 
+type ExtractionState =
   | { status: 'idle' }
   | { status: 'checking' }
   | { status: 'unsupported'; message: string }
@@ -680,7 +670,7 @@ const extractionConfigSchema = {
     selector: { required: true },
   },
   contentSelector: { required: true },
-  extractionType: { 
+  extractionType: {
     required: true,
     enum: ['message-list', 'search-sections', 'articles-sections', 'full-page'],
   },
@@ -703,12 +693,12 @@ interface StorageSchema {
     localDownload: boolean;
     webhook: boolean;
   };
-  
+
   // 內容設定
   includeMetadata: boolean;
   includeSources: boolean;
   downloadMedia: boolean;
-  
+
   // UI 設定
   lastUsedPlatform?: Platform;
   exportCount?: number;
@@ -727,4 +717,3 @@ const defaultStorage: StorageSchema = {
   downloadMedia: true,
 };
 ```
-

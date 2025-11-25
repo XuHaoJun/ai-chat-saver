@@ -9,13 +9,7 @@ export type { Platform, ConversationMetadata, Conversation } from './conversatio
 export { PLATFORM_DISPLAY_NAMES } from './conversation';
 
 // 訊息相關型別
-export type {
-  MessageRole,
-  AttachmentType,
-  Attachment,
-  Source,
-  Message,
-} from './message';
+export type { MessageRole, AttachmentType, Attachment, Source, Message } from './message';
 
 // 設定相關型別
 export type {
@@ -26,4 +20,3 @@ export type {
   FilenameTemplatePlaceholder,
 } from './config';
 export { DEFAULT_STORAGE } from './config';
-

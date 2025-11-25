@@ -10,31 +10,12 @@ import type { Platform } from '@ai-chat-saver/shared-types';
  * 各平台允許提取的 URL 模式
  */
 export const EXTRACTION_ALLOWED_PAGES: Record<Platform, string[]> = {
-  chatgpt: [
-    'chatgpt.com/c/',
-    'chatgpt.com/share/',
-    'chat.openai.com/c/',
-    'chat.openai.com/share/',
-  ],
-  claude: [
-    'claude.ai/chat/',
-    'claude.ai/project/',
-  ],
-  perplexity: [
-    'perplexity.ai/search/',
-    'perplexity.ai/page/',
-  ],
-  phind: [
-    'phind.com/search',
-    'phind.com/agent',
-  ],
-  deepwiki: [
-    'deepwiki.com/',
-  ],
-  gemini: [
-    'gemini.google.com/app/',
-    'gemini.google.com/u/',
-  ],
+  chatgpt: ['chatgpt.com/c/', 'chatgpt.com/share/', 'chat.openai.com/c/', 'chat.openai.com/share/'],
+  claude: ['claude.ai/chat/', 'claude.ai/project/'],
+  perplexity: ['perplexity.ai/search/', 'perplexity.ai/page/'],
+  phind: ['phind.com/search', 'phind.com/agent'],
+  deepwiki: ['deepwiki.com/'],
+  gemini: ['gemini.google.com/app/', 'gemini.google.com/u/'],
 };
 
 /**
@@ -82,4 +63,3 @@ export function getAllAllowedPatterns(): string[] {
 
   return [...new Set(patterns)]; // 去重
 }
-

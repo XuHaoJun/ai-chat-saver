@@ -154,10 +154,7 @@ export function generateFirefoxManifest(): FirefoxManifestV2 {
       default_icon: BASE_CONFIG.icons,
       default_title: '匯出對話',
     },
-    permissions: [
-      ...BASE_CONFIG.permissions,
-      ...BASE_CONFIG.host_patterns,
-    ],
+    permissions: [...BASE_CONFIG.permissions, ...BASE_CONFIG.host_patterns],
     background: {
       scripts: ['background.js'],
       persistent: false,
@@ -181,9 +178,7 @@ export function generateFirefoxManifest(): FirefoxManifestV2 {
  * 產生並寫入 manifest.json
  */
 export function writeManifest(browser: Browser, outputDir: string): void {
-  const manifest = browser === 'chrome'
-    ? generateChromeManifest()
-    : generateFirefoxManifest();
+  const manifest = browser === 'chrome' ? generateChromeManifest() : generateFirefoxManifest();
 
   const outputPath = path.join(outputDir, 'manifest.json');
   fs.writeFileSync(outputPath, JSON.stringify(manifest, null, 2));
@@ -203,4 +198,3 @@ if (process.argv[1]?.includes('manifest-generator')) {
 
   writeManifest(browser, outputDir);
 }
-

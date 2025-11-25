@@ -43,4 +43,3 @@ export const chatgptConfig: ExtractionConfig = {
     attachmentsSelector: '[data-testid="file-thumbnail"]',
   },
 };
-

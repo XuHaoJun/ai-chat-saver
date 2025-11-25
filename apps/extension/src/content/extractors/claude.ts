@@ -7,12 +7,7 @@
 import type { ExtractionConfig } from '@ai-chat-saver/extraction-configs';
 import type { ExtractedContent, MessageSection } from '@/types/extraction';
 import type { BaseExtractor } from './base';
-import {
-  extractPageTitle,
-  getElementHtml,
-  createSuccessResult,
-  createErrorResult,
-} from './base';
+import { extractPageTitle, getElementHtml, createSuccessResult, createErrorResult } from './base';
 
 /**
  * Claude 提取器實作
@@ -80,10 +75,7 @@ export class ClaudeExtractor implements BaseExtractor {
 
       return createSuccessResult(title, sections, contentContainer.innerHTML);
     } catch (error) {
-      return createErrorResult(
-        error instanceof Error ? error.message : '提取過程發生未知錯誤'
-      );
+      return createErrorResult(error instanceof Error ? error.message : '提取過程發生未知錯誤');
     }
   }
 }
-

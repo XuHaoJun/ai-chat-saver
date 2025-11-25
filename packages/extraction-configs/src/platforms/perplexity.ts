@@ -12,10 +12,7 @@ import type { ExtractionConfig } from '../types';
 export const perplexityConfig: ExtractionConfig = {
   platform: 'perplexity',
   domainName: 'Perplexity',
-  allowedUrls: [
-    'perplexity.ai/search/',
-    'perplexity.ai/page/',
-  ],
+  allowedUrls: ['perplexity.ai/search/', 'perplexity.ai/page/'],
   pageTitle: {
     selector: 'h1',
     fallbackSelectors: ['title', '[data-testid="query-text"]'],
@@ -42,4 +39,3 @@ export const perplexityConfig: ExtractionConfig = {
     ],
   },
 };
-

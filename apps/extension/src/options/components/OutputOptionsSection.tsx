@@ -73,9 +73,7 @@ export function OutputOptionsSection({
         <div className="flex items-center justify-between">
           <div className="space-y-0.5">
             <Label>Webhook</Label>
-            <p className="text-sm text-muted-foreground">
-              將對話內容傳送到指定的 Webhook URL
-            </p>
+            <p className="text-sm text-muted-foreground">將對話內容傳送到指定的 Webhook URL</p>
           </div>
           <Switch
             checked={webhook}
@@ -95,18 +93,13 @@ export function OutputOptionsSection({
               placeholder="https://example.com/webhook"
               className={webhookUrlError ? 'border-destructive' : ''}
             />
-            {webhookUrlError && (
-              <p className="text-sm text-destructive">{webhookUrlError}</p>
-            )}
+            {webhookUrlError && <p className="text-sm text-destructive">{webhookUrlError}</p>}
           </div>
         )}
       </div>
 
       {/* 提示 */}
-      <p className="text-xs text-muted-foreground">
-        * 至少需要啟用一個輸出選項
-      </p>
+      <p className="text-xs text-muted-foreground">* 至少需要啟用一個輸出選項</p>
     </div>
   );
 }
-

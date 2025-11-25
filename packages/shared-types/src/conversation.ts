@@ -65,4 +65,3 @@ export interface Conversation {
   /** 對話 metadata（可選） */
   metadata?: ConversationMetadata;
 }
-

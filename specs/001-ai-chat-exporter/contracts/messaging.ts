@@ -1,8 +1,8 @@
 /**
  * 內部訊息傳遞契約
- * 
+ *
  * 定義 Background Script 與 Content Script 之間的訊息格式
- * 
+ *
  * @module contracts/messaging
  */
 
@@ -13,11 +13,7 @@
 /**
  * 所有支援的訊息類型
  */
-export type MessageType = 
-  | 'PING'
-  | 'EXTRACT_CONTENT'
-  | 'EXPORT_CONTENT'
-  | 'SETTINGS_UPDATED';
+export type MessageType = 'PING' | 'EXTRACT_CONTENT' | 'EXPORT_CONTENT' | 'SETTINGS_UPDATED';
 
 // ============================================================================
 // 請求訊息
@@ -68,7 +64,7 @@ export interface SettingsUpdatedRequest {
 /**
  * 所有請求訊息的聯合型別
  */
-export type RequestMessage = 
+export type RequestMessage =
   | PingRequest
   | ExtractContentRequest
   | ExportContentRequest
@@ -112,9 +108,7 @@ export interface ExtractContentErrorResponse {
 /**
  * 提取內容回應
  */
-export type ExtractContentResponse = 
-  | ExtractContentSuccessResponse
-  | ExtractContentErrorResponse;
+export type ExtractContentResponse = ExtractContentSuccessResponse | ExtractContentErrorResponse;
 
 /**
  * 匯出內容回應
@@ -186,9 +180,15 @@ export interface UserConfig {
 /**
  * 提取區塊
  */
-export type ExtractedSection = 
+export type ExtractedSection =
   | { type: 'message'; role: string; content: string; inputs?: string[]; sources?: Source[] }
-  | { type: 'search-qa'; question: string | null; answer: string | null; model?: string | null; sources?: Source[] }
+  | {
+      type: 'search-qa';
+      question: string | null;
+      answer: string | null;
+      model?: string | null;
+      sources?: Source[];
+    }
   | { type: 'article'; content: string; sources?: Source[] }
   | { type: 'generic'; html: string };
 
@@ -237,4 +237,3 @@ export interface MessageListenerConfig {
   /** 處理 SETTINGS_UPDATED */
   onSettingsUpdated?: MessageHandler<SettingsUpdatedRequest, SettingsUpdatedResponse>;
 }
-

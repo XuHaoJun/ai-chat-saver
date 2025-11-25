@@ -24,4 +24,3 @@ export const convertHeadings: ConversionRule = (html) => {
 
   return result;
 };
-

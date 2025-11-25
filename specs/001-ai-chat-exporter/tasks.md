@@ -16,6 +16,7 @@
 ## Path Conventions
 
 Based on plan.md monorepo structure:
+
 - **apps/extension/**: Browser extension application
 - **packages/html-to-markdown/**: HTML to Markdown converter
 - **packages/extraction-configs/**: Platform extraction configurations
@@ -351,17 +352,17 @@ With multiple developers:
 
 ## Summary
 
-| Metric | Count |
-|--------|-------|
-| **Total Tasks** | 104 |
-| **Phase 1 (Setup)** | 7 |
-| **Phase 2 (Foundational)** | 23 |
-| **Phase 3 (US1 - MVP)** | 31 |
-| **Phase 4 (US2)** | 17 |
-| **Phase 5 (US3)** | 8 |
-| **Phase 6 (US4)** | 11 |
-| **Phase 7 (Polish)** | 7 |
-| **Parallel Tasks** | 51 |
+| Metric                     | Count |
+| -------------------------- | ----- |
+| **Total Tasks**            | 104   |
+| **Phase 1 (Setup)**        | 7     |
+| **Phase 2 (Foundational)** | 23    |
+| **Phase 3 (US1 - MVP)**    | 31    |
+| **Phase 4 (US2)**          | 17    |
+| **Phase 5 (US3)**          | 8     |
+| **Phase 6 (US4)**          | 11    |
+| **Phase 7 (Polish)**       | 7     |
+| **Parallel Tasks**         | 51    |
 
 ### MVP Scope
 
@@ -370,12 +371,12 @@ With multiple developers:
 
 ### Independent Test Criteria
 
-| User Story | Test Criteria |
-|------------|---------------|
-| US1 | Export conversation from each of 6 platforms, verify markdown format |
-| US2 | Modify filename template, export, verify new filename used |
-| US3 | Repeat US1 tests on Firefox, verify identical output |
-| US4 | Trigger extraction failure, verify user sees clear error within 2s |
+| User Story | Test Criteria                                                        |
+| ---------- | -------------------------------------------------------------------- |
+| US1        | Export conversation from each of 6 platforms, verify markdown format |
+| US2        | Modify filename template, export, verify new filename used           |
+| US3        | Repeat US1 tests on Firefox, verify identical output                 |
+| US4        | Trigger extraction failure, verify user sees clear error within 2s   |
 
 ---
 
@@ -387,4 +388,3 @@ With multiple developers:
 - Commit after each task or logical group
 - Stop at any checkpoint to validate story independently
 - Avoid: vague tasks, same file conflicts, cross-story dependencies that break independence
-

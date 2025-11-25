@@ -93,4 +93,3 @@ export function escapeMarkdown(text: string): string {
   // 跳脫 Markdown 特殊字元
   return text.replace(/([\\`*_{}[\]()#+\-.!|])/g, '\\$1');
 }
-

@@ -34,6 +34,5 @@
 - All clarifications completed (3 questions resolved):
   1. Unsupported page behavior: Show notification message listing supported platforms
   2. Embedded media handling: Download media files and include local file paths in markdown
-  3. Filename template format: Use standard format codes (e.g., %Y-%M-%D_%h-%m-%s_%T)
+  3. Filename template format: Use standard format codes (e.g., %Y-%M-%D*%h-%m-%s*%T)
 - Specification is ready for `/speckit.plan`
-

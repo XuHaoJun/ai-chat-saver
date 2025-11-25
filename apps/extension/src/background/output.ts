@@ -5,12 +5,7 @@
  */
 
 import browser from 'webextension-polyfill';
-import type {
-  OutputDestination,
-  ExportContent,
-  ExportOptions,
-  ExportResult,
-} from '@/types/output';
+import type { OutputDestination, ExportContent, ExportOptions, ExportResult } from '@/types/output';
 import { createDownloadBlob } from '@/utils/zip';
 
 /**
@@ -109,10 +104,7 @@ export class OutputManager {
   /**
    * 執行匯出到所有已啟用的目的地
    */
-  async exportToAll(
-    content: ExportContent,
-    options: ExportOptions
-  ): Promise<ExportResult[]> {
+  async exportToAll(content: ExportContent, options: ExportOptions): Promise<ExportResult[]> {
     const enabledDestinations = this.getEnabledDestinations();
     const results: ExportResult[] = [];
 
@@ -242,4 +234,3 @@ export function configureWebhook(url: string, enabled: boolean): void {
   webhookDestination.setUrl(url);
   webhookDestination.enabled = enabled;
 }
-

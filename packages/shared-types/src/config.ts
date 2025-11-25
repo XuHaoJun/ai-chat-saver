@@ -109,4 +109,3 @@ export const DEFAULT_STORAGE: StorageSchema = {
   includeSources: true,
   downloadMedia: true,
 };
-

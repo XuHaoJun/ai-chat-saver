@@ -168,4 +168,3 @@ export interface ExtractionConfig {
   /** 提取前後動作 */
   actions?: ExtractionActions;
 }
-
