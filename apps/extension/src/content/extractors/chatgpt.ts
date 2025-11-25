@@ -6,8 +6,8 @@
 
 import type { ExtractionConfig } from '@ai-chat-saver/extraction-configs';
 import type { ExtractedContent, MessageSection } from '@/types/extraction';
+import type { BaseExtractor } from './base';
 import {
-  BaseExtractor,
   extractPageTitle,
   getElementHtml,
   createSuccessResult,

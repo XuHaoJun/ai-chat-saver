@@ -10,7 +10,7 @@
 ## Technical Context
 
 **Language/Version**: TypeScript 5.x, Node.js 20+  
-**Primary Dependencies**: React 18, shadcn/ui, Tailwind CSS v4, webextension-polyfill  
+**Primary Dependencies**: React 18, shadcn/ui, Tailwind CSS v3, webextension-polyfill  
 **Build System**: Turborepo monorepo, Vite for bundling  
 **Storage**: Browser extension storage API (chrome.storage.sync)  
 **Testing**: Vitest for unit/integration tests, Playwright for E2E  
@@ -85,7 +85,7 @@ ai-chat-saver/
 │       │   └── icons/                # 擴充功能圖示
 │       ├── manifest.json             # 擴充功能清單（模板）
 │       ├── vite.config.ts            # Vite 建置設定
-│       ├── tailwind.config.ts        # Tailwind CSS v4 設定
+│       ├── tailwind.config.ts        # Tailwind CSS v3 設定
 │       └── package.json
 │
 ├── packages/

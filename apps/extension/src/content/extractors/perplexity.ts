@@ -7,8 +7,8 @@
 import type { ExtractionConfig } from '@ai-chat-saver/extraction-configs';
 import type { ExtractedContent, SearchQASection } from '@/types/extraction';
 import type { Source } from '@ai-chat-saver/shared-types';
+import type { BaseExtractor } from './base';
 import {
-  BaseExtractor,
   extractPageTitle,
   getElementHtml,
   getElementText,

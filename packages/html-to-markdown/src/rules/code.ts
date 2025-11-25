@@ -20,7 +20,7 @@ function extractLanguage(classAttr: string): string {
 
   for (const pattern of patterns) {
     const match = classAttr.match(pattern);
-    if (match) {
+    if (match && match[1]) {
       return match[1].toLowerCase();
     }
   }

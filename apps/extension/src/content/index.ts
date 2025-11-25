@@ -31,7 +31,7 @@ type Message = PingMessage | ExtractContentMessage;
 function handleMessage(
   message: Message,
   _sender: browser.Runtime.MessageSender
-): Promise<unknown> | boolean {
+): Promise<unknown> | void {
   switch (message.type) {
     case 'PING':
       // 回應 ping 請求，表示 content script 已載入
@@ -41,7 +41,8 @@ function handleMessage(
       return handleExtractionRequest(message);
 
     default:
-      return false;
+      // 不處理的訊息類型，返回 undefined
+      return;
   }
 }
 
