@@ -28,13 +28,13 @@ Based on plan.md monorepo structure:
 
 **Purpose**: Project initialization and monorepo structure setup
 
-- [ ] T001 Create Turborepo monorepo structure with pnpm-workspace.yaml at project root
-- [ ] T002 Initialize root package.json with workspace scripts (dev, build, lint, test, typecheck)
-- [ ] T003 Create turbo.json with pipeline configuration for build, dev, test, lint tasks
-- [ ] T004 [P] Create root tsconfig.json with shared TypeScript configuration
-- [ ] T005 [P] Create root .eslintrc.js with TypeScript and React rules
-- [ ] T006 [P] Create root .prettierrc with formatting configuration
-- [ ] T007 [P] Create .gitignore with node_modules, dist, and build artifacts
+- [x] T001 Create Turborepo monorepo structure with pnpm-workspace.yaml at project root
+- [x] T002 Initialize root package.json with workspace scripts (dev, build, lint, test, typecheck)
+- [x] T003 Create turbo.json with pipeline configuration for build, dev, test, lint tasks
+- [x] T004 [P] Create root tsconfig.json with shared TypeScript configuration
+- [x] T005 [P] Create root .eslintrc.js with TypeScript and React rules
+- [x] T006 [P] Create root .prettierrc with formatting configuration
+- [x] T007 [P] Create .gitignore with node_modules, dist, and build artifacts
 
 ---
 
@@ -46,35 +46,35 @@ Based on plan.md monorepo structure:
 
 ### Shared Types Package
 
-- [ ] T008 Initialize packages/shared-types/package.json with TypeScript dependencies
-- [ ] T009 [P] Create packages/shared-types/tsconfig.json
-- [ ] T010 [P] Create packages/shared-types/src/index.ts with package exports
-- [ ] T011 [P] Create packages/shared-types/src/conversation.ts with Conversation, ConversationMetadata, Platform types
-- [ ] T012 [P] Create packages/shared-types/src/message.ts with Message, MessageRole, Attachment, Source types
-- [ ] T013 [P] Create packages/shared-types/src/config.ts with ExportConfig, OutputOptions, ContentOptions types
+- [x] T008 Initialize packages/shared-types/package.json with TypeScript dependencies
+- [x] T009 [P] Create packages/shared-types/tsconfig.json
+- [x] T010 [P] Create packages/shared-types/src/index.ts with package exports
+- [x] T011 [P] Create packages/shared-types/src/conversation.ts with Conversation, ConversationMetadata, Platform types
+- [x] T012 [P] Create packages/shared-types/src/message.ts with Message, MessageRole, Attachment, Source types
+- [x] T013 [P] Create packages/shared-types/src/config.ts with ExportConfig, OutputOptions, ContentOptions types
 
 ### HTML to Markdown Package
 
-- [ ] T014 Initialize packages/html-to-markdown/package.json with dependencies
-- [ ] T015 [P] Create packages/html-to-markdown/tsconfig.json
-- [ ] T016 [P] Create packages/html-to-markdown/src/index.ts with package exports
-- [ ] T017 [P] Create packages/html-to-markdown/src/types.ts with converter types
-- [ ] T018 Create packages/html-to-markdown/src/entities.ts with HTML entity decoder
-- [ ] T019 [P] Create packages/html-to-markdown/src/rules/headings.ts with h1-h6 conversion
-- [ ] T020 [P] Create packages/html-to-markdown/src/rules/code.ts with code block and inline code conversion
-- [ ] T021 [P] Create packages/html-to-markdown/src/rules/lists.ts with ordered/unordered list conversion
-- [ ] T022 [P] Create packages/html-to-markdown/src/rules/tables.ts with table conversion
-- [ ] T023 [P] Create packages/html-to-markdown/src/rules/links.ts with link and image conversion
-- [ ] T024 [P] Create packages/html-to-markdown/src/rules/text.ts with bold/italic/strikethrough conversion
-- [ ] T025 Create packages/html-to-markdown/src/converter.ts with main htmlToMarkdown function applying all rules
+- [x] T014 Initialize packages/html-to-markdown/package.json with dependencies
+- [x] T015 [P] Create packages/html-to-markdown/tsconfig.json
+- [x] T016 [P] Create packages/html-to-markdown/src/index.ts with package exports
+- [x] T017 [P] Create packages/html-to-markdown/src/types.ts with converter types
+- [x] T018 Create packages/html-to-markdown/src/entities.ts with HTML entity decoder
+- [x] T019 [P] Create packages/html-to-markdown/src/rules/headings.ts with h1-h6 conversion
+- [x] T020 [P] Create packages/html-to-markdown/src/rules/code.ts with code block and inline code conversion
+- [x] T021 [P] Create packages/html-to-markdown/src/rules/lists.ts with ordered/unordered list conversion
+- [x] T022 [P] Create packages/html-to-markdown/src/rules/tables.ts with table conversion
+- [x] T023 [P] Create packages/html-to-markdown/src/rules/links.ts with link and image conversion
+- [x] T024 [P] Create packages/html-to-markdown/src/rules/text.ts with bold/italic/strikethrough conversion
+- [x] T025 Create packages/html-to-markdown/src/converter.ts with main htmlToMarkdown function applying all rules
 
 ### Extraction Configs Package
 
-- [ ] T026 Initialize packages/extraction-configs/package.json with dependencies
-- [ ] T027 [P] Create packages/extraction-configs/tsconfig.json
-- [ ] T028 [P] Create packages/extraction-configs/src/index.ts with package exports
-- [ ] T029 Create packages/extraction-configs/src/types.ts with ExtractionConfig, SelectorConfig, MessageExtractionConfig types
-- [ ] T030 Create packages/extraction-configs/src/allowed-pages.ts with EXTRACTION_ALLOWED_PAGES map
+- [x] T026 Initialize packages/extraction-configs/package.json with dependencies
+- [x] T027 [P] Create packages/extraction-configs/tsconfig.json
+- [x] T028 [P] Create packages/extraction-configs/src/index.ts with package exports
+- [x] T029 Create packages/extraction-configs/src/types.ts with ExtractionConfig, SelectorConfig, MessageExtractionConfig types
+- [x] T030 Create packages/extraction-configs/src/allowed-pages.ts with EXTRACTION_ALLOWED_PAGES map
 
 **Checkpoint**: Foundation ready - packages can be built and user story implementation can begin
 
@@ -88,55 +88,55 @@ Based on plan.md monorepo structure:
 
 ### Platform Extraction Configs for User Story 1
 
-- [ ] T031 [P] [US1] Create packages/extraction-configs/src/platforms/chatgpt.ts with ChatGPT DOM selectors
-- [ ] T032 [P] [US1] Create packages/extraction-configs/src/platforms/claude.ts with Claude DOM selectors
-- [ ] T033 [P] [US1] Create packages/extraction-configs/src/platforms/perplexity.ts with Perplexity DOM selectors
-- [ ] T034 [P] [US1] Create packages/extraction-configs/src/platforms/phind.ts with Phind DOM selectors
-- [ ] T035 [P] [US1] Create packages/extraction-configs/src/platforms/deepwiki.ts with deepwiki DOM selectors per research.md
-- [ ] T036 [P] [US1] Create packages/extraction-configs/src/platforms/gemini.ts with Gemini DOM selectors per research.md
-- [ ] T037 [US1] Update packages/extraction-configs/src/index.ts to export all platform configs
+- [x] T031 [P] [US1] Create packages/extraction-configs/src/platforms/chatgpt.ts with ChatGPT DOM selectors
+- [x] T032 [P] [US1] Create packages/extraction-configs/src/platforms/claude.ts with Claude DOM selectors
+- [x] T033 [P] [US1] Create packages/extraction-configs/src/platforms/perplexity.ts with Perplexity DOM selectors
+- [x] T034 [P] [US1] Create packages/extraction-configs/src/platforms/phind.ts with Phind DOM selectors
+- [x] T035 [P] [US1] Create packages/extraction-configs/src/platforms/deepwiki.ts with deepwiki DOM selectors per research.md
+- [x] T036 [P] [US1] Create packages/extraction-configs/src/platforms/gemini.ts with Gemini DOM selectors per research.md
+- [x] T037 [US1] Update packages/extraction-configs/src/index.ts to export all platform configs
 
 ### Extension App Structure for User Story 1
 
-- [ ] T038 [US1] Initialize apps/extension/package.json with React, Vite, webextension-polyfill dependencies
-- [ ] T039 [P] [US1] Create apps/extension/tsconfig.json
-- [ ] T040 [P] [US1] Create apps/extension/vite.config.ts with extension build configuration
-- [ ] T041 [P] [US1] Create apps/extension/public/icons/ directory with extension icons (16, 48, 128, 500 px)
+- [x] T038 [US1] Initialize apps/extension/package.json with React, Vite, webextension-polyfill dependencies
+- [x] T039 [P] [US1] Create apps/extension/tsconfig.json
+- [x] T040 [P] [US1] Create apps/extension/vite.config.ts with extension build configuration
+- [x] T041 [P] [US1] Create apps/extension/public/icons/ directory with extension icons (16, 48, 128, 500 px)
 
 ### Type Definitions for User Story 1
 
-- [ ] T042 [P] [US1] Create apps/extension/src/types/extraction.ts with ExtractedContent, ExtractedData, ExtractedSection types
-- [ ] T043 [P] [US1] Create apps/extension/src/types/config.ts with UserConfig type
-- [ ] T044 [P] [US1] Create apps/extension/src/types/output.ts with ExportContent, ExportResult, OutputDestination interface
+- [x] T042 [P] [US1] Create apps/extension/src/types/extraction.ts with ExtractedContent, ExtractedData, ExtractedSection types
+- [x] T043 [P] [US1] Create apps/extension/src/types/config.ts with UserConfig type
+- [x] T044 [P] [US1] Create apps/extension/src/types/output.ts with ExportContent, ExportResult, OutputDestination interface
 
 ### Utility Functions for User Story 1
 
-- [ ] T045 [P] [US1] Create apps/extension/src/utils/platform.ts with platform detection from URL
-- [ ] T046 [P] [US1] Create apps/extension/src/utils/filename.ts with filename template formatter
-- [ ] T047 [P] [US1] Create apps/extension/src/utils/storage.ts with chrome.storage.sync wrapper per contracts/storage.ts
-- [ ] T048 [US1] Create apps/extension/src/utils/zip.ts with JSZip wrapper for multi-file export
+- [x] T045 [P] [US1] Create apps/extension/src/utils/platform.ts with platform detection from URL
+- [x] T046 [P] [US1] Create apps/extension/src/utils/filename.ts with filename template formatter
+- [x] T047 [P] [US1] Create apps/extension/src/utils/storage.ts with chrome.storage.sync wrapper per contracts/storage.ts
+- [x] T048 [US1] Create apps/extension/src/utils/zip.ts with JSZip wrapper for multi-file export
 
 ### Content Script Extractors for User Story 1
 
-- [ ] T049 [US1] Create apps/extension/src/content/extractors/base.ts with base extractor interface
-- [ ] T050 [P] [US1] Create apps/extension/src/content/extractors/chatgpt.ts with ChatGPT extractor
-- [ ] T051 [P] [US1] Create apps/extension/src/content/extractors/claude.ts with Claude extractor
-- [ ] T052 [P] [US1] Create apps/extension/src/content/extractors/perplexity.ts with Perplexity extractor
-- [ ] T053 [P] [US1] Create apps/extension/src/content/extractors/phind.ts with Phind extractor
-- [ ] T054 [P] [US1] Create apps/extension/src/content/extractors/deepwiki.ts with deepwiki extractor
-- [ ] T055 [P] [US1] Create apps/extension/src/content/extractors/gemini.ts with Gemini extractor
-- [ ] T056 [US1] Create apps/extension/src/content/extractors/index.ts with extractor registry
-- [ ] T057 [US1] Create apps/extension/src/content/index.ts with content script message handler per contracts/messaging.ts
+- [x] T049 [US1] Create apps/extension/src/content/extractors/base.ts with base extractor interface
+- [x] T050 [P] [US1] Create apps/extension/src/content/extractors/chatgpt.ts with ChatGPT extractor
+- [x] T051 [P] [US1] Create apps/extension/src/content/extractors/claude.ts with Claude extractor
+- [x] T052 [P] [US1] Create apps/extension/src/content/extractors/perplexity.ts with Perplexity extractor
+- [x] T053 [P] [US1] Create apps/extension/src/content/extractors/phind.ts with Phind extractor
+- [x] T054 [P] [US1] Create apps/extension/src/content/extractors/deepwiki.ts with deepwiki extractor
+- [x] T055 [P] [US1] Create apps/extension/src/content/extractors/gemini.ts with Gemini extractor
+- [x] T056 [US1] Create apps/extension/src/content/extractors/index.ts with extractor registry
+- [x] T057 [US1] Create apps/extension/src/content/index.ts with content script message handler per contracts/messaging.ts
 
 ### Background Script for User Story 1
 
-- [ ] T058 [US1] Create apps/extension/src/background/scraping.ts with extraction orchestration logic
-- [ ] T059 [US1] Create apps/extension/src/background/output.ts with OutputManager and LocalDownloadDestination per contracts/output-destination.ts
-- [ ] T060 [US1] Create apps/extension/src/background/index.ts with service worker handling icon click and messaging
+- [x] T058 [US1] Create apps/extension/src/background/scraping.ts with extraction orchestration logic
+- [x] T059 [US1] Create apps/extension/src/background/output.ts with OutputManager and LocalDownloadDestination per contracts/output-destination.ts
+- [x] T060 [US1] Create apps/extension/src/background/index.ts with service worker handling icon click and messaging
 
 ### Manifest for User Story 1 (Chrome Only for MVP)
 
-- [ ] T061 [US1] Create apps/extension/manifest.json for Chrome Manifest V3 with permissions, content scripts, service worker
+- [x] T061 [US1] Create apps/extension/manifest.json for Chrome Manifest V3 with permissions, content scripts, service worker
 
 **Checkpoint**: User Story 1 complete - users can export conversations from all 6 platforms on Chrome
 
@@ -150,32 +150,32 @@ Based on plan.md monorepo structure:
 
 ### Tailwind CSS Setup for User Story 2
 
-- [ ] T062 [US2] Create apps/extension/tailwind.config.ts with Tailwind CSS v4 configuration
-- [ ] T063 [P] [US2] Create apps/extension/src/styles/globals.css with Tailwind directives
+- [x] T062 [US2] Create apps/extension/tailwind.config.ts with Tailwind CSS v4 configuration
+- [x] T063 [P] [US2] Create apps/extension/src/styles/globals.css with Tailwind directives
 
 ### shadcn/ui Components for User Story 2
 
-- [ ] T064 [P] [US2] Create apps/extension/src/options/components/ui/button.tsx with shadcn Button component
-- [ ] T065 [P] [US2] Create apps/extension/src/options/components/ui/input.tsx with shadcn Input component
-- [ ] T066 [P] [US2] Create apps/extension/src/options/components/ui/switch.tsx with shadcn Switch component
-- [ ] T067 [P] [US2] Create apps/extension/src/options/components/ui/card.tsx with shadcn Card component
-- [ ] T068 [P] [US2] Create apps/extension/src/options/components/ui/label.tsx with shadcn Label component
-- [ ] T069 [P] [US2] Create apps/extension/src/options/components/ui/toast.tsx with shadcn Toast component
+- [x] T064 [P] [US2] Create apps/extension/src/options/components/ui/button.tsx with shadcn Button component
+- [x] T065 [P] [US2] Create apps/extension/src/options/components/ui/input.tsx with shadcn Input component
+- [x] T066 [P] [US2] Create apps/extension/src/options/components/ui/switch.tsx with shadcn Switch component
+- [x] T067 [P] [US2] Create apps/extension/src/options/components/ui/card.tsx with shadcn Card component
+- [x] T068 [P] [US2] Create apps/extension/src/options/components/ui/label.tsx with shadcn Label component
+- [x] T069 [P] [US2] Create apps/extension/src/options/components/ui/toast.tsx with shadcn Toast component
 
 ### Options Page Components for User Story 2
 
-- [ ] T070 [US2] Create apps/extension/src/options/components/FilenameTemplateInput.tsx with template editor and preview
-- [ ] T071 [P] [US2] Create apps/extension/src/options/components/OutputOptionsSection.tsx with local download and webhook toggles
-- [ ] T072 [P] [US2] Create apps/extension/src/options/components/ContentOptionsSection.tsx with metadata, sources, media toggles
-- [ ] T073 [US2] Create apps/extension/src/options/hooks/useStorage.ts with React hook for chrome.storage.sync
+- [x] T070 [US2] Create apps/extension/src/options/components/FilenameTemplateInput.tsx with template editor and preview
+- [x] T071 [P] [US2] Create apps/extension/src/options/components/OutputOptionsSection.tsx with local download and webhook toggles
+- [x] T072 [P] [US2] Create apps/extension/src/options/components/ContentOptionsSection.tsx with metadata, sources, media toggles
+- [x] T073 [US2] Create apps/extension/src/options/hooks/useStorage.ts with React hook for chrome.storage.sync
 
 ### Options Page Main for User Story 2
 
-- [ ] T074 [US2] Create apps/extension/src/options/App.tsx with main options page layout and form
-- [ ] T075 [US2] Create apps/extension/src/options/main.tsx with React entry point
-- [ ] T076 [US2] Create apps/extension/src/options/options.html with options page HTML shell
-- [ ] T077 [US2] Update apps/extension/manifest.json to add options_page entry
-- [ ] T078 [US2] Update apps/extension/vite.config.ts to build options page as additional entry
+- [x] T074 [US2] Create apps/extension/src/options/App.tsx with main options page layout and form
+- [x] T075 [US2] Create apps/extension/src/options/main.tsx with React entry point
+- [x] T076 [US2] Create apps/extension/src/options/options.html with options page HTML shell
+- [x] T077 [US2] Update apps/extension/manifest.json to add options_page entry
+- [x] T078 [US2] Update apps/extension/vite.config.ts to build options page as additional entry
 
 **Checkpoint**: User Story 2 complete - users can configure export settings via options page
 
@@ -189,20 +189,20 @@ Based on plan.md monorepo structure:
 
 ### Manifest Generation for User Story 3
 
-- [ ] T079 [US3] Create scripts/manifest-generator.ts with Chrome MV3 and Firefox MV2 manifest generation
-- [ ] T080 [US3] Create scripts/build.ts with browser-specific build orchestration
+- [x] T079 [US3] Create scripts/manifest-generator.ts with Chrome MV3 and Firefox MV2 manifest generation
+- [x] T080 [US3] Create scripts/build.ts with browser-specific build orchestration
 
 ### Firefox Compatibility for User Story 3
 
-- [ ] T081 [US3] Update apps/extension/src/background/index.ts to use webextension-polyfill browser API
-- [ ] T082 [US3] Update apps/extension/src/content/index.ts to use webextension-polyfill browser API
-- [ ] T083 [US3] Update apps/extension/src/utils/storage.ts to use webextension-polyfill browser API
-- [ ] T084 [US3] Update apps/extension/vite.config.ts with separate Chrome and Firefox build outputs
+- [x] T081 [US3] Update apps/extension/src/background/index.ts to use webextension-polyfill browser API
+- [x] T082 [US3] Update apps/extension/src/content/index.ts to use webextension-polyfill browser API
+- [x] T083 [US3] Update apps/extension/src/utils/storage.ts to use webextension-polyfill browser API
+- [x] T084 [US3] Update apps/extension/vite.config.ts with separate Chrome and Firefox build outputs
 
 ### Packaging for User Story 3
 
-- [ ] T085 [US3] Create scripts/zip.ts with extension packaging for Chrome and Firefox stores
-- [ ] T086 [US3] Update root package.json with build:chrome, build:firefox, prod scripts
+- [x] T085 [US3] Create scripts/zip.ts with extension packaging for Chrome and Firefox stores
+- [x] T086 [US3] Update root package.json with build:chrome, build:firefox, prod scripts
 
 **Checkpoint**: User Story 3 complete - extension works identically on Chrome and Firefox
 
@@ -216,23 +216,23 @@ Based on plan.md monorepo structure:
 
 ### Error Handling for User Story 4
 
-- [ ] T087 [US4] Create apps/extension/src/utils/notifications.ts with user notification helper functions
-- [ ] T088 [US4] Update apps/extension/src/content/extractors/base.ts with fallback selector support
-- [ ] T089 [US4] Update apps/extension/src/background/scraping.ts with extraction error handling and user feedback
-- [ ] T090 [US4] Update packages/extraction-configs/src/types.ts to add fallbackSelectors to SelectorConfig
+- [x] T087 [US4] Create apps/extension/src/utils/notifications.ts with user notification helper functions
+- [x] T088 [US4] Update apps/extension/src/content/extractors/base.ts with fallback selector support
+- [x] T089 [US4] Update apps/extension/src/background/scraping.ts with extraction error handling and user feedback
+- [x] T090 [US4] Update packages/extraction-configs/src/types.ts to add fallbackSelectors to SelectorConfig
 
 ### Fallback Selectors for User Story 4
 
-- [ ] T091 [P] [US4] Update packages/extraction-configs/src/platforms/chatgpt.ts with fallback selectors
-- [ ] T092 [P] [US4] Update packages/extraction-configs/src/platforms/claude.ts with fallback selectors
-- [ ] T093 [P] [US4] Update packages/extraction-configs/src/platforms/perplexity.ts with fallback selectors
-- [ ] T094 [P] [US4] Update packages/extraction-configs/src/platforms/phind.ts with fallback selectors
-- [ ] T095 [P] [US4] Update packages/extraction-configs/src/platforms/deepwiki.ts with fallback selectors
-- [ ] T096 [P] [US4] Update packages/extraction-configs/src/platforms/gemini.ts with fallback selectors
+- [x] T091 [P] [US4] Update packages/extraction-configs/src/platforms/chatgpt.ts with fallback selectors
+- [x] T092 [P] [US4] Update packages/extraction-configs/src/platforms/claude.ts with fallback selectors
+- [x] T093 [P] [US4] Update packages/extraction-configs/src/platforms/perplexity.ts with fallback selectors
+- [x] T094 [P] [US4] Update packages/extraction-configs/src/platforms/phind.ts with fallback selectors
+- [x] T095 [P] [US4] Update packages/extraction-configs/src/platforms/deepwiki.ts with fallback selectors
+- [x] T096 [P] [US4] Update packages/extraction-configs/src/platforms/gemini.ts with fallback selectors
 
 ### Unsupported Page Handling for User Story 4
 
-- [ ] T097 [US4] Update apps/extension/src/background/index.ts with unsupported page notification per FR-022
+- [x] T097 [US4] Update apps/extension/src/background/index.ts with unsupported page notification per FR-022
 
 **Checkpoint**: User Story 4 complete - extension handles interface changes gracefully
 
@@ -242,13 +242,13 @@ Based on plan.md monorepo structure:
 
 **Purpose**: Final improvements affecting multiple user stories
 
-- [ ] T098 [P] Add webhook output destination in apps/extension/src/background/output.ts per contracts/output-destination.ts
-- [ ] T099 [P] Create apps/extension/src/popup/ placeholder for future popup UI
-- [ ] T100 Add extension icons for disabled state in apps/extension/public/icons/
-- [ ] T101 Final code review and lint fixes across all packages
-- [ ] T102 Validate quickstart.md instructions work correctly
-- [ ] T103 Build and test production ZIP for Chrome
-- [ ] T104 Build and test production ZIP for Firefox
+- [x] T098 [P] Add webhook output destination in apps/extension/src/background/output.ts per contracts/output-destination.ts
+- [x] T099 [P] Create apps/extension/src/popup/ placeholder for future popup UI
+- [x] T100 Add extension icons for disabled state in apps/extension/public/icons/
+- [x] T101 Final code review and lint fixes across all packages
+- [x] T102 Validate quickstart.md instructions work correctly
+- [x] T103 Build and test production ZIP for Chrome
+- [x] T104 Build and test production ZIP for Firefox
 
 ---
 
