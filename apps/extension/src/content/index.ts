@@ -4,7 +4,17 @@
  * @module extension/content
  */
 
-import browser from 'webextension-polyfill';
+// Note: Using chrome API directly to avoid ES6 import issues in content scripts
+declare global {
+  const chrome: {
+    runtime: {
+      onMessage: {
+        addListener: (callback: (message: any, sender: any) => Promise<unknown> | void) => void;
+      };
+      MessageSender: any;
+    };
+  };
+}
 import type { Platform } from '@ai-chat-saver/shared-types';
 import type { ExtractionConfig } from '@ai-chat-saver/extraction-configs';
 import type { ExtractedContent } from '@/types/extraction';
@@ -30,7 +40,7 @@ type Message = PingMessage | ExtractContentMessage;
  */
 function handleMessage(
   message: Message,
-  _sender: browser.Runtime.MessageSender
+  _sender: any
 ): Promise<unknown> | void {
   switch (message.type) {
     case 'PING':
@@ -73,7 +83,7 @@ async function handleExtractionRequest(message: ExtractContentMessage): Promise<
  */
 function init(): void {
   // 註冊訊息監聽器
-  browser.runtime.onMessage.addListener(handleMessage);
+  chrome.runtime.onMessage.addListener(handleMessage);
 
   // 標記 content script 已載入
   document.documentElement.setAttribute('data-ai-chat-saver-loaded', 'true');
