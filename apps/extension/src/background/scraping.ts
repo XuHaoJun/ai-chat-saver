@@ -28,20 +28,31 @@ export interface ScrapingResult {
  */
 async function ensureContentScriptLoaded(tabId: number): Promise<boolean> {
   try {
+    // 首先嘗試 ping content script
+    const response = await browser.tabs.sendMessage(tabId, { type: 'PING' });
+    if (response?.loaded === true) {
+      return true;
+    }
+  } catch {
+    // Content script 尚未載入或回應異常
+  }
+
+  // 手動注入 content script
+  try {
+    await browser.scripting.executeScript({
+      target: { tabId },
+      files: ['content.js'],
+    });
+
+    // 等待一下讓 script 初始化
+    await new Promise(resolve => setTimeout(resolve, 100));
+
+    // 再次確認 script 已載入
     const response = await browser.tabs.sendMessage(tabId, { type: 'PING' });
     return response?.loaded === true;
-  } catch {
-    // Content script 尚未載入，需要注入
-    try {
-      await browser.scripting.executeScript({
-        target: { tabId },
-        files: ['content.js'],
-      });
-      return true;
-    } catch (error) {
-      console.error('注入 content script 失敗:', error);
-      return false;
-    }
+  } catch (error) {
+    console.error('注入 content script 失敗:', error);
+    return false;
   }
 }
 

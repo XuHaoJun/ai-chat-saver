@@ -11,6 +11,31 @@ function generateManifestPlugin(): Plugin {
     name: 'generate-manifest',
     writeBundle(options) {
       const outDir = options.dir || 'dist/chrome';
+
+      // Move options.html from src/options/ to options/
+      const srcOptionsPath = resolve(outDir, 'src/options/options.html');
+      const destOptionsPath = resolve(outDir, 'options/options.html');
+
+      if (fs.existsSync(srcOptionsPath)) {
+        // Ensure destination directory exists
+        const destDir = resolve(outDir, 'options');
+        if (!fs.existsSync(destDir)) {
+          fs.mkdirSync(destDir, { recursive: true });
+        }
+
+        // Move the file
+        fs.renameSync(srcOptionsPath, destOptionsPath);
+        console.log('Moved options.html to options/options.html');
+
+        // Remove the empty src/options directory
+        try {
+          fs.rmdirSync(resolve(outDir, 'src/options'));
+          fs.rmdirSync(resolve(outDir, 'src'));
+        } catch (error) {
+          // Ignore errors if directories are not empty or don't exist
+        }
+      }
+
       const manifest = {
         manifest_version: 3,
         name: 'AI Chat Saver',
@@ -59,7 +84,7 @@ function generateManifestPlugin(): Plugin {
             run_at: 'document_idle',
           },
         ],
-        options_page: 'src/options/options.html',
+        options_page: 'options/options.html',
         web_accessible_resources: [
           {
             resources: ['icons/*'],
