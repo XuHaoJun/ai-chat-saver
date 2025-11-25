@@ -24,10 +24,23 @@ export class PerplexityExtractor implements BaseExtractor {
 
   extract(config: ExtractionConfig): ExtractedContent {
     try {
+      console.log('[AI Chat Saver] Perplexity extractor starting...');
+
       const title = extractPageTitle(config);
+      console.log('[AI Chat Saver] Page title:', title);
+
       const contentContainer = document.querySelector(config.contentSelector);
+      console.log('[AI Chat Saver] Content container selector:', config.contentSelector);
+      console.log('[AI Chat Saver] Content container found:', !!contentContainer);
 
       if (!contentContainer) {
+        // Debug: list all possible containers
+        const possibleContainers = document.querySelectorAll('[data-testid*="result"], [data-testid*="answer"], [data-testid*="search"], .search-results, .answer, main, article');
+        console.log('[AI Chat Saver] Possible containers found:', possibleContainers.length);
+        possibleContainers.forEach((el, i) => {
+          console.log(`[AI Chat Saver] Container ${i}:`, el.tagName, el.className, el.getAttribute('data-testid'));
+        });
+
         return createErrorResult('找不到搜尋結果容器');
       }
 
@@ -39,8 +52,29 @@ export class PerplexityExtractor implements BaseExtractor {
       }
 
       // 取得問題和回答
+      console.log('[AI Chat Saver] Question selector:', sectionConfig.userQuestionSelector);
+      console.log('[AI Chat Saver] Answer selector:', sectionConfig.aiAnswerSelector);
+
       const questions = document.querySelectorAll(sectionConfig.userQuestionSelector);
       const answers = document.querySelectorAll(sectionConfig.aiAnswerSelector);
+
+      console.log('[AI Chat Saver] Questions found:', questions.length);
+      console.log('[AI Chat Saver] Answers found:', answers.length);
+
+      // Debug: log found elements
+      if (questions.length > 0) {
+        console.log('[AI Chat Saver] Question elements:');
+        questions.forEach((el, i) => {
+          console.log(`  [${i}]:`, el.tagName, el.className, el.textContent?.substring(0, 100));
+        });
+      }
+
+      if (answers.length > 0) {
+        console.log('[AI Chat Saver] Answer elements:');
+        answers.forEach((el, i) => {
+          console.log(`  [${i}]:`, el.tagName, el.className, el.textContent?.substring(0, 100));
+        });
+      }
 
       const maxSections = Math.max(questions.length, answers.length);
 

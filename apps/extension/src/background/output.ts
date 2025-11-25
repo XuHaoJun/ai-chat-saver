@@ -29,29 +29,24 @@ export class LocalDownloadDestination implements OutputDestination {
         options.filename
       );
 
-      // 建立 Object URL
-      const url = URL.createObjectURL(blob);
+      // 將 Blob 轉換為 Data URL (Service Worker 不支援 URL.createObjectURL)
+      const dataUrl = await this.blobToDataUrl(blob);
 
-      try {
-        // 執行下載
-        await browser.downloads.download({
-          url,
-          filename,
-          saveAs: false,
-        });
+      // 執行下載
+      await browser.downloads.download({
+        url: dataUrl,
+        filename,
+        saveAs: false,
+      });
 
-        return {
-          success: true,
-          destination: this.name,
-          details: {
-            fileSize: blob.size,
-            duration: Date.now() - startTime,
-          },
-        };
-      } finally {
-        // 清理 Object URL
-        URL.revokeObjectURL(url);
-      }
+      return {
+        success: true,
+        destination: this.name,
+        details: {
+          fileSize: blob.size,
+          duration: Date.now() - startTime,
+        },
+      };
     } catch (error) {
       return {
         success: false,
@@ -59,6 +54,25 @@ export class LocalDownloadDestination implements OutputDestination {
         error: error instanceof Error ? error.message : '下載失敗',
       };
     }
+  }
+
+  /**
+   * 將 Blob 轉換為 Data URL
+   * Service Worker 不支援 URL.createObjectURL，需使用 FileReader
+   */
+  private blobToDataUrl(blob: Blob): Promise<string> {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        if (typeof reader.result === 'string') {
+          resolve(reader.result);
+        } else {
+          reject(new Error('Failed to convert blob to data URL'));
+        }
+      };
+      reader.onerror = () => reject(reader.error);
+      reader.readAsDataURL(blob);
+    });
   }
 }
 

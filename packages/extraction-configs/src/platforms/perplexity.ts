@@ -15,24 +15,24 @@ export const perplexityConfig: ExtractionConfig = {
   allowedUrls: ['perplexity.ai/search/', 'perplexity.ai/page/'],
   pageTitle: {
     selector: 'h1',
-    fallbackSelectors: ['title', '[data-testid="query-text"]'],
+    fallbackSelectors: ['title', '.query-text', '[class*="query"]'],
   },
-  contentSelector: '[data-testid="search-results"]',
+  contentSelector: 'main',
   extractionType: 'search-sections',
   sectionConfig: {
-    userQuestionSelector: '[data-testid="query-text"]',
-    aiAnswerSelector: '[data-testid="answer-text"]',
-    aiModelSelector: '[data-testid="model-name"]',
+    userQuestionSelector: '.query-text, [class*="query"], h1, [data-cy="query"]',
+    aiAnswerSelector: '.answer-text, [class*="answer"], [data-cy="answer"], .prose, .markdown-content',
+    aiModelSelector: '[class*="model"], [data-cy="model"]',
   },
   sourcesExtraction: {
     selectors: [
       {
-        selector: '[data-testid="source-item"]',
+        selector: '[class*="source"], [data-cy="source"], .citation',
         extractionType: 'list',
         scope: 'content',
       },
       {
-        selector: '[data-testid="citation"]',
+        selector: '[class*="citation"], [data-cy="citation"]',
         extractionType: 'tile-list',
         scope: 'content',
       },

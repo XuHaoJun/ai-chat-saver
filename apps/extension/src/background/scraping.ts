@@ -27,18 +27,42 @@ export interface ScrapingResult {
  * 確保 content script 已注入
  */
 async function ensureContentScriptLoaded(tabId: number): Promise<boolean> {
+  console.log('[AI Chat Saver] Checking content script on tab:', tabId);
+
   try {
     // 首先嘗試 ping content script
+    console.log('[AI Chat Saver] Pinging content script...');
     const response = await browser.tabs.sendMessage(tabId, { type: 'PING' });
     if (response?.loaded === true) {
+      console.log('[AI Chat Saver] Content script ping successful');
       return true;
     }
-  } catch {
-    // Content script 尚未載入或回應異常
+    console.log('[AI Chat Saver] Content script ping failed, response:', response);
+  } catch (error) {
+    console.log('[AI Chat Saver] Content script ping threw error:', error);
+  }
+
+  // 檢查頁面是否已有 content script 標記
+  try {
+    console.log('[AI Chat Saver] Checking for content script attribute...');
+    const results = await browser.scripting.executeScript({
+      target: { tabId },
+      func: () => document.documentElement.hasAttribute('data-ai-chat-saver-loaded'),
+    });
+
+    if (results && results[0] && results[0].result === true) {
+      console.log('[AI Chat Saver] Content script attribute found');
+      // Content script 已經載入但 ping 失敗，可能是訊息處理問題
+      return true;
+    }
+    console.log('[AI Chat Saver] Content script attribute not found, results:', results);
+  } catch (error) {
+    console.log('[AI Chat Saver] Error checking content script attribute:', error);
   }
 
   // 手動注入 content script
   try {
+    console.log('[AI Chat Saver] Manually injecting content script...');
     await browser.scripting.executeScript({
       target: { tabId },
       files: ['content.js'],
@@ -48,10 +72,13 @@ async function ensureContentScriptLoaded(tabId: number): Promise<boolean> {
     await new Promise(resolve => setTimeout(resolve, 100));
 
     // 再次確認 script 已載入
+    console.log('[AI Chat Saver] Verifying content script after injection...');
     const response = await browser.tabs.sendMessage(tabId, { type: 'PING' });
-    return response?.loaded === true;
+    const success = response?.loaded === true;
+    console.log('[AI Chat Saver] Content script injection result:', success, response);
+    return success;
   } catch (error) {
-    console.error('注入 content script 失敗:', error);
+    console.error('[AI Chat Saver] Content script injection failed:', error);
     return false;
   }
 }
@@ -60,15 +87,77 @@ async function ensureContentScriptLoaded(tabId: number): Promise<boolean> {
  * 從頁面提取內容
  */
 async function extractFromPage(tabId: number, platform: Platform): Promise<ExtractedContent> {
+  console.log('[AI Chat Saver] Extracting content from platform:', platform, 'tab:', tabId);
+
   const config = getConfigForPlatform(platform);
+  console.log('[AI Chat Saver] Using config:', config);
 
-  const response = await browser.tabs.sendMessage(tabId, {
-    type: 'EXTRACT_CONTENT',
-    platform,
-    pageConfig: config,
-  });
+  // Use scripting.executeScript to run extraction directly - more reliable than messaging
+  console.log('[AI Chat Saver] Executing extraction script directly...');
+  try {
+    const results = await browser.scripting.executeScript({
+      target: { tabId },
+      func: (platformArg: string, configArg: any) => {
+        // This function runs in the page context
+        console.log('[AI Chat Saver] Direct extraction starting for platform:', platformArg);
+        
+        // Access the extraction function from the content script's global scope
+        // Since content script is already loaded, we can trigger extraction via DOM
+        const event = new CustomEvent('ai-chat-saver-extract', {
+          detail: { platform: platformArg, config: configArg }
+        });
+        document.dispatchEvent(event);
+        
+        // Wait a bit and read result from DOM
+        return new Promise((resolve) => {
+          // Listen for result
+          const handler = (e: Event) => {
+            const customEvent = e as CustomEvent;
+            console.log('[AI Chat Saver] Received extraction result via event');
+            document.removeEventListener('ai-chat-saver-result', handler);
+            resolve(customEvent.detail);
+          };
+          document.addEventListener('ai-chat-saver-result', handler);
+          
+          // Timeout fallback
+          setTimeout(() => {
+            document.removeEventListener('ai-chat-saver-result', handler);
+            // Try to read from DOM element
+            const resultEl = document.getElementById('ai-chat-saver-result');
+            if (resultEl && resultEl.textContent) {
+              try {
+                resolve(JSON.parse(resultEl.textContent));
+                return;
+              } catch (e) {
+                console.error('[AI Chat Saver] Failed to parse result:', e);
+              }
+            }
+            resolve({ success: false, error: '提取超時' });
+          }, 5000);
+        });
+      },
+      args: [platform, config],
+    });
 
-  return response as ExtractedContent;
+    console.log('[AI Chat Saver] Direct execution results:', results);
+
+    if (results && results[0] && results[0].result) {
+      const result = results[0].result as ExtractedContent;
+      console.log('[AI Chat Saver] Extraction successful:', result);
+      return result;
+    }
+
+    return {
+      success: false,
+      error: '提取腳本執行失敗',
+    };
+  } catch (error) {
+    console.error('[AI Chat Saver] Direct extraction failed:', error);
+    return {
+      success: false,
+      error: '無法執行提取腳本',
+    };
+  }
 }
 
 /**
