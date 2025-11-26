@@ -17,6 +17,7 @@ A browser extension that exports conversations from popular AI chat platforms to
 - **Progress Feedback**: Visual feedback during export processing
 - **Media Support**: Downloads embedded media and includes local file paths in Markdown
 - **Large Conversation Support**: Handles conversations with thousands of messages
+- **✨ Easy Platform Addition**: Use AI-powered command to automatically generate extraction configs for new platforms
 
 ## 🎯 Supported Platforms
 
@@ -26,6 +27,47 @@ A browser extension that exports conversations from popular AI chat platforms to
 - ✅ Phind (`*.phind.com`)
 - ✅ DeepWiki (`*.deepwiki.com`)
 - ✅ Gemini (`*.gemini.google.com`)
+
+## 🆕 Adding Custom Platforms (AI-Powered)
+
+> **New!** You can now easily add support for new AI chat platforms using our AI-powered extraction command.
+> 
+> **Note**: This feature requires [Cursor IDE](https://cursor.sh/) - the `/extract-user-platform` command is a Cursor-specific command.
+
+### Quick Start
+
+1. **Create a platform directory** in `user-platforms/`:
+   ```bash
+   mkdir -p user-platforms/my-platform/samples
+   ```
+
+2. **Add `platform.json`** with basic info:
+   ```json
+   {
+     "id": "my-platform",
+     "name": "My Platform",
+     "domain": "my-platform.ai",
+     "urlPatterns": ["my-platform.ai/chat/"]
+   }
+   ```
+
+3. **Save HTML samples** from the platform to `samples/` directory
+
+4. **Run the extraction command** in Cursor IDE:
+   ```
+   /extract-user-platform my-platform
+   ```
+   
+   > **Note**: This command is only available in [Cursor IDE](https://cursor.sh/). If you're using a different editor, see the [Manual Method](#method-2-manual) below.
+
+The command will:
+- ✅ Analyze HTML structure using AI
+- ✅ Automatically detect extraction type (message-list or search-sections)
+- ✅ Generate complete TypeScript extraction config
+- ✅ Update index files and type definitions
+- ✅ Ready to use immediately!
+
+See [`user-platforms/README.md`](user-platforms/README.md) for detailed documentation.
 
 ## 📦 Installation
 
@@ -187,10 +229,18 @@ Test fixtures include sample HTML from supported platforms in `test/fixtures/htm
 
 ### Adding Support for New Platforms
 
+#### Method 1: AI-Powered (Recommended - Cursor IDE Only)
+
+Use the `/extract-user-platform` command in [Cursor IDE](https://cursor.sh/) (see [Adding Custom Platforms](#-adding-custom-platforms-ai-powered) section above).
+
+#### Method 2: Manual
+
 1. Add platform configuration in `packages/extraction-configs/src/platforms/`
-2. Update manifest permissions in `apps/extension/manifest.json`
-3. Add extraction logic in `apps/extension/src/content/extractors/`
-4. Update documentation and tests
+2. Update `packages/extraction-configs/src/index.ts` to export the new config
+3. Update `packages/shared-types/src/conversation.ts` to add the platform type
+4. Update manifest permissions in `apps/extension/manifest.json`
+5. Add extraction logic in `apps/extension/src/content/extractors/`
+6. Update documentation and tests
 
 ## 🚀 Release Process
 
