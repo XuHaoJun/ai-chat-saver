@@ -3,7 +3,7 @@ name: Release
 on:
   push:
     tags:
-      - 'v*'
+      - "v*"
 
 jobs:
   release:
@@ -16,7 +16,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: "20"
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
@@ -53,13 +53,10 @@ jobs:
         run: echo "version=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
 
       - name: Create GitHub release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
+          name: Release ${{ github.ref }}
           body: |
             ## Changes
 
@@ -69,25 +66,10 @@ jobs:
 
             - **Chrome**: `ai-chat-saver-${{ steps.get_version.outputs.version }}-chrome.zip`
             - **Firefox**: `ai-chat-saver-${{ steps.get_version.outputs.version }}-firefox.zip`
+          files: |
+            ./apps/extension/dist/ai-chat-saver-${{ steps.get_version.outputs.version }}-chrome.zip
+            ./apps/extension/dist/ai-chat-saver-${{ steps.get_version.outputs.version }}-firefox.zip
           draft: false
           prerelease: false
-
-      - name: Upload Chrome release asset
-        uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./apps/extension/dist/ai-chat-saver-${{ steps.get_version.outputs.version }}-chrome.zip
-          asset_name: ai-chat-saver-${{ steps.get_version.outputs.version }}-chrome.zip
-          asset_content_type: application/zip
-
-      - name: Upload Firefox release asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./apps/extension/dist/ai-chat-saver-${{ steps.get_version.outputs.version }}-firefox.zip
-          asset_name: ai-chat-saver-${{ steps.get_version.outputs.version }}-firefox.zip
-          asset_content_type: application/zip
