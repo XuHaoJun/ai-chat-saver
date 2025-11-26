@@ -1,0 +1,7 @@
+{
+  "id": "deepseek",
+  "name": "DeepSeek",
+  "domain": "chat.deepseek.com",
+  "urlPatterns": ["chat.deepseek.com/"]
+}
+

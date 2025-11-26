@@ -1,0 +1,7 @@
+{
+  "id": "gemini",
+  "name": "Gemini",
+  "domain": "gemini.google.com",
+  "urlPatterns": ["gemini.google.com/app/", "gemini.google.com/u/"]
+}
+

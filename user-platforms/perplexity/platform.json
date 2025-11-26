@@ -1,0 +1,7 @@
+{
+  "id": "perplexity",
+  "name": "Perplexity",
+  "domain": "perplexity.ai",
+  "urlPatterns": ["perplexity.ai/search/", "perplexity.ai/page/"]
+}
+
