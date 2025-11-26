@@ -1,0 +1,7 @@
+{
+  "id": "deepwiki",
+  "name": "DeepWiki",
+  "domain": "deepwiki.com",
+  "urlPatterns": ["deepwiki.com/"]
+}
+
