@@ -1,0 +1,40 @@
+{
+  "name": "@ai-chat-saver/extension",
+  "version": "0.1.0",
+  "private": true,
+  "description": "AI Chat Saver 瀏覽器擴充功能",
+  "type": "module",
+  "scripts": {
+    "dev": "vite build --watch --mode development",
+    "dev:firefox": "vite build --watch --mode development --config vite.config.firefox.ts",
+    "build": "tsc && vite build",
+    "build:chrome": "tsc && vite build --mode production",
+    "build:firefox": "tsc && vite build --mode production --config vite.config.firefox.ts",
+    "prod": "pnpm build:chrome && pnpm build:firefox",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src --ext .ts,.tsx",
+    "lint:fix": "eslint src --ext .ts,.tsx --fix",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@ai-chat-saver/extraction-configs": "workspace:*",
+    "@ai-chat-saver/html-to-markdown": "workspace:*",
+    "@ai-chat-saver/shared-types": "workspace:*",
+    "jszip": "^3.10.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "webextension-polyfill": "^0.10.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.48",
+    "@types/react-dom": "^18.2.18",
+    "@types/webextension-polyfill": "^0.10.7",
+    "@vitejs/plugin-react": "^4.2.1",
+    "autoprefixer": "^10.4.22",
+    "postcss": "^8.4.33",
+    "tailwindcss": "3",
+    "typescript": "^5.3.3",
+    "vite": "^5.0.12"
+  }
+}

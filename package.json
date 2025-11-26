@@ -1,0 +1,49 @@
+{
+  "name": "ai-chat-saver",
+  "version": "0.1.0",
+  "private": true,
+  "description": "瀏覽器擴充功能：從 ChatGPT、Claude、Perplexity、deepwiki、Gemini、Phind 匯出對話為 Markdown 檔案",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/user/ai-chat-saver"
+  },
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "dev": "turbo dev",
+    "dev:chrome": "turbo dev --filter=@ai-chat-saver/extension",
+    "dev:firefox": "turbo dev:firefox --filter=@ai-chat-saver/extension",
+    "build": "turbo build",
+    "build:chrome": "turbo build:chrome",
+    "build:firefox": "turbo build:firefox",
+    "prod": "pnpm build:chrome && pnpm build:firefox && pnpm zip:all",
+    "zip:chrome": "npx tsx scripts/zip.ts chrome",
+    "zip:firefox": "npx tsx scripts/zip.ts firefox",
+    "zip:all": "npx tsx scripts/zip.ts all",
+    "lint": "turbo lint",
+    "lint:fix": "turbo lint:fix",
+    "typecheck": "turbo typecheck",
+    "test": "turbo test",
+    "test:unit": "turbo test:unit",
+    "test:integration": "turbo test:integration",
+    "test:watch": "turbo test:watch",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,css,md}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,css,md}\"",
+    "clean": "turbo clean && rm -rf node_modules"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "archiver": "^7.0.1",
+    "eslint": "^8.56.0",
+    "prettier": "^3.2.4",
+    "prettier-plugin-tailwindcss": "^0.7.1",
+    "tsx": "^4.20.6",
+    "turbo": "^2.0.0",
+    "typescript": "^5.3.3"
+  },
+  "packageManager": "pnpm@8.15.0",
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=8.0.0"
+  }
+}
