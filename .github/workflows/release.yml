@@ -1,0 +1,93 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 8.15.0
+
+      - name: Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - name: Setup pnpm cache
+        uses: actions/cache@v4
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build Chrome extension
+        run: pnpm build:chrome
+
+      - name: Build Firefox extension
+        run: pnpm build:firefox
+
+      - name: Create release archives
+        run: pnpm zip:all
+
+      - name: Get version from tag
+        id: get_version
+        run: echo "version=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
+
+      - name: Create GitHub release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          body: |
+            ## Changes
+
+            See the [changelog](https://github.com/${{ github.repository }}/compare/v${{ steps.get_version.outputs.version }}...${{ github.ref }}) for details.
+
+            ## Downloads
+
+            - **Chrome**: `ai-chat-saver-${{ steps.get_version.outputs.version }}-chrome.zip`
+            - **Firefox**: `ai-chat-saver-${{ steps.get_version.outputs.version }}-firefox.zip`
+          draft: false
+          prerelease: false
+
+      - name: Upload Chrome release asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./apps/extension/dist/ai-chat-saver-${{ steps.get_version.outputs.version }}-chrome.zip
+          asset_name: ai-chat-saver-${{ steps.get_version.outputs.version }}-chrome.zip
+          asset_content_type: application/zip
+
+      - name: Upload Firefox release asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./apps/extension/dist/ai-chat-saver-${{ steps.get_version.outputs.version }}-firefox.zip
+          asset_name: ai-chat-saver-${{ steps.get_version.outputs.version }}-firefox.zip
+          asset_content_type: application/zip
