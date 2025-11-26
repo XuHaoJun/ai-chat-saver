@@ -11,10 +11,126 @@ import {
   showUnsupportedPageNotification,
   showExportSuccess,
   showExtractionError,
+  showConcurrentExportNotification,
 } from '@/utils/notifications';
 import { DEFAULT_STORAGE } from '@ai-chat-saver/shared-types';
 import { launchScraping } from './scraping';
 import { outputManager } from './output';
+
+/**
+ * 匯出狀態管理
+ */
+class ExportStateManager {
+  private isExporting = false;
+  private currentStep = 0;
+  private totalSteps = 4; // 預設步驟數：載入腳本、提取內容、格式化、匯出
+  private readonly processingIcon = {
+    '16': 'icons/icon_disabled-16.png',
+    '48': 'icons/icon_disabled-48.png',
+    '128': 'icons/icon_disabled-128.png',
+  };
+  private readonly normalIcon = {
+    '16': 'icons/icon-16.png',
+    '48': 'icons/icon-48.png',
+    '128': 'icons/icon-128.png',
+  };
+
+  /**
+   * 檢查是否正在匯出
+   */
+  isCurrentlyExporting(): boolean {
+    return this.isExporting;
+  }
+
+  /**
+   * 開始匯出 - 設定載入狀態
+   */
+  startExport(totalSteps = 4): void {
+    if (this.isExporting) {
+      return; // Already exporting
+    }
+
+    this.isExporting = true;
+    this.currentStep = 0;
+    this.totalSteps = totalSteps;
+    this.updateIcon(true);
+    this.updateProgressTitle();
+    console.log('[AI Chat Saver] Export started - showing loading state');
+  }
+
+  /**
+   * 更新進度
+   */
+  updateProgress(step: number, description?: string): void {
+    if (!this.isExporting) {
+      return;
+    }
+
+    this.currentStep = step;
+    this.updateProgressTitle(description);
+    console.log(
+      `[AI Chat Saver] Progress: ${step}/${this.totalSteps} - ${description || 'Processing...'}`
+    );
+  }
+
+  /**
+   * 結束匯出 - 恢復正常狀態
+   */
+  endExport(): void {
+    if (!this.isExporting) {
+      return; // Not exporting
+    }
+
+    this.isExporting = false;
+    this.currentStep = 0;
+    this.updateIcon(false);
+    this.updateTitle('匯出對話');
+    console.log('[AI Chat Saver] Export finished - restoring normal state');
+  }
+
+  /**
+   * 更新進度標題
+   */
+  private updateProgressTitle(description?: string): void {
+    const baseText = description || 'Processing...';
+    const progressText =
+      this.totalSteps > 1 ? `${baseText} (${this.currentStep}/${this.totalSteps})` : baseText;
+    this.updateTitle(progressText);
+  }
+
+  /**
+   * 更新擴充功能圖示
+   */
+  private updateIcon(isProcessing: boolean): void {
+    try {
+      browser.action
+        .setIcon({
+          path: isProcessing ? this.processingIcon : this.normalIcon,
+        })
+        .catch((error) => {
+          console.error('[AI Chat Saver] Failed to update icon:', error);
+        });
+    } catch (error) {
+      console.error('[AI Chat Saver] Error updating icon:', error);
+    }
+  }
+
+  /**
+   * 更新擴充功能標題
+   */
+  private updateTitle(title: string): void {
+    try {
+      browser.action.setTitle({ title }).catch((error) => {
+        console.error('[AI Chat Saver] Failed to update title:', error);
+      });
+    } catch (error) {
+      console.error('[AI Chat Saver] Error updating title:', error);
+    }
+  }
+}
+
+// 全域匯出狀態管理器實例
+export const exportStateManager = new ExportStateManager();
 
 /**
  * 擴充功能安裝時初始化
@@ -38,6 +154,12 @@ browser.action.onClicked.addListener(async (tab) => {
     return;
   }
 
+  // 檢查是否正在匯出 (FR-023)
+  if (exportStateManager.isCurrentlyExporting()) {
+    await showConcurrentExportNotification();
+    return;
+  }
+
   // 偵測平台
   const detection = detectPlatform(tab.url);
 
@@ -48,9 +170,22 @@ browser.action.onClicked.addListener(async (tab) => {
     return;
   }
 
+  // 開始匯出 - 顯示載入狀態 (FR-022)
+  exportStateManager.startExport(5); // 5 個步驟：載入腳本、提取內容、格式化、準備匯出、下載
+
   try {
     // 執行提取
-    const result = await launchScraping(tab.id, detection.platform, tab.url);
+    const result = await launchScraping(
+      tab.id,
+      detection.platform,
+      tab.url,
+      (step, description) => {
+        exportStateManager.updateProgress(step, description);
+      }
+    );
+
+    // 步驟 5: 執行下載
+    exportStateManager.updateProgress(5, '下載檔案...');
 
     if (!result.success || !result.content || !result.filename) {
       const platformName = detection.config?.domainName || detection.platform;
@@ -88,6 +223,9 @@ browser.action.onClicked.addListener(async (tab) => {
       platformName,
       error instanceof Error ? error.message : '匯出過程發生未知錯誤'
     );
+  } finally {
+    // 結束匯出 - 恢復正常狀態
+    exportStateManager.endExport();
   }
 });
 

@@ -242,15 +242,22 @@ function formatToMarkdown(
 }
 
 /**
+ * 進度回呼函數類型
+ */
+export type ProgressCallback = (step: number, description: string) => void;
+
+/**
  * 執行提取流程
  */
 export async function launchScraping(
   tabId: number,
   platform: Platform,
-  url: string
+  url: string,
+  onProgress?: ProgressCallback
 ): Promise<ScrapingResult> {
   try {
-    // 確保 content script 已載入
+    // 步驟 1: 確保 content script 已載入
+    onProgress?.(1, '載入提取腳本...');
     const loaded = await ensureContentScriptLoaded(tabId);
     if (!loaded) {
       return {
@@ -259,7 +266,8 @@ export async function launchScraping(
       };
     }
 
-    // 執行提取
+    // 步驟 2: 執行提取
+    onProgress?.(2, '提取對話內容...');
     const extractedContent = await extractFromPage(tabId, platform);
 
     if (!extractedContent.success || !extractedContent.data) {
@@ -269,6 +277,8 @@ export async function launchScraping(
       };
     }
 
+    // 步驟 3: 格式化為 Markdown
+    onProgress?.(3, '轉換為 Markdown...');
     // 取得使用者設定
     const storage = await getStorage();
     const { filenameTemplate, includeMetadata } = storage;
@@ -312,6 +322,9 @@ export async function launchScraping(
       assets: [], // 目前不處理媒體資產
       metadata,
     };
+
+    // 步驟 4: 準備匯出
+    onProgress?.(4, '準備下載...');
 
     return {
       success: true,

@@ -78,10 +78,10 @@ The extension should gracefully handle when AI chat platforms update their user 
 ### Edge Cases
 
 - What happens when a user tries to export from a page that is not a supported AI chat platform? **Clarified**: Extension shows a notification message explaining the page is not supported and lists supported platforms.
-- How does the extension handle very long conversations (thousands of messages)?
+- How does the extension handle very long conversations (thousands of messages)? **Clarified**: Extension shows loading state with spinner and "Processing..." text during processing, provides progress feedback for large conversations without strict time limits, and handles conversations up to thousands of messages.
 - What happens when a conversation page is still loading when the user clicks export?
 - How does the system handle conversations with embedded media (images, code blocks, tables)? **Clarified**: Media files are downloaded and local file paths are included in markdown output.
-- What happens when a user exports multiple conversations in quick succession?
+- What happens when a user exports multiple conversations in quick succession? **Clarified**: Extension prevents multiple concurrent exports by showing a notification that export is already in progress when user attempts to start another export while one is running.
 - How does the extension handle conversations with special characters or non-English content?
 - What happens when browser storage is full or unavailable for saving settings?
 - How does the system handle conversations that span multiple pages or require scrolling?
@@ -114,6 +114,9 @@ The extension should gracefully handle when AI chat platforms update their user 
 - **FR-019**: Extension MUST include conversation metadata (platform, date, URL) in exported file when configured
 - **FR-020**: Extension MUST support exporting conversations with embedded media references by downloading media files and including local file paths in the markdown output
 - **FR-021**: Extension MUST handle conversations of varying lengths (from single messages to thousands of messages)
+- **FR-022**: Extension MUST show a loading state with spinner and "Processing..." text on the extension button during export processing to indicate ongoing work and prevent multiple concurrent exports
+- **FR-023**: Extension MUST prevent multiple concurrent exports by showing a notification when user attempts to start export while another export is already in progress
+- **FR-024**: Extension MUST provide progress feedback during export processing for large conversations, with no strict time limits but clear indication of ongoing work
 
 ### Key Entities _(include if feature involves data)_
 
@@ -127,13 +130,21 @@ The extension should gracefully handle when AI chat platforms update their user 
 ### Measurable Outcomes
 
 - **SC-001**: Users can successfully export conversations from all 6 supported platforms (ChatGPT, Claude, Perplexity, deepwiki, Gemini, Phind) with 95% success rate on first attempt
-- **SC-002**: Exported markdown files are generated and downloaded within 3 seconds for conversations up to 100 messages
+- **SC-002**: Exported markdown files are generated and downloaded within 3 seconds for conversations up to 100 messages, with progress feedback shown for larger conversations without strict time limits
 - **SC-003**: 90% of exported markdown files maintain proper formatting (code blocks, lists, headers) when opened in standard markdown viewers
 - **SC-004**: Extension functions identically in Chrome and Firefox with no platform-specific bugs affecting core export functionality
 - **SC-005**: Users can configure and save export settings, with preferences persisting correctly across browser restarts 100% of the time
-- **SC-006**: Extension handles conversations with up to 1000 messages without performance degradation or browser freezing
+- **SC-006**: Extension handles conversations with up to 1000 messages without browser freezing, providing progress feedback for large conversations
 - **SC-007**: When extraction fails due to platform changes, users receive clear error messages within 2 seconds of attempting export
 - **SC-008**: Exported markdown files include all visible conversation content with less than 5% content loss compared to source page
+
+## Clarifications
+
+### Session 2025-11-26
+
+- Q: What loading state should be shown on the extension button during conversation export processing? → A: Spinner with "Processing..." text
+- Q: What should happen when a user clicks the extension button while export processing is already in progress? → A: Show notification that export is already in progress
+- Q: What are the performance expectations for processing large conversations? → A: No strict time limit, but show progress feedback
 
 ## Assumptions
 

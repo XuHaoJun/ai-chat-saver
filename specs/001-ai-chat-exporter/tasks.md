@@ -134,6 +134,9 @@ Based on plan.md monorepo structure:
 - [x] T058 [US1] Create apps/extension/src/background/scraping.ts with extraction orchestration logic
 - [x] T059 [US1] Create apps/extension/src/background/output.ts with OutputManager and LocalDownloadDestination per contracts/output-destination.ts
 - [x] T060 [US1] Create apps/extension/src/background/index.ts with service worker handling icon click and messaging
+- [x] T105 [US1] Add loading state management to background script to show spinner and "Processing..." text on extension button per FR-022
+- [x] T106 [US1] Add concurrent export prevention logic with notification when user attempts export while another is in progress per FR-023
+- [x] T107 [US1] Add progress feedback implementation for large conversations without strict time limits per FR-024
 
 ### Manifest for User Story 1 (Chrome Only for MVP)
 
@@ -354,10 +357,10 @@ With multiple developers:
 
 | Metric                     | Count |
 | -------------------------- | ----- |
-| **Total Tasks**            | 104   |
+| **Total Tasks**            | 107   |
 | **Phase 1 (Setup)**        | 7     |
 | **Phase 2 (Foundational)** | 23    |
-| **Phase 3 (US1 - MVP)**    | 31    |
+| **Phase 3 (US1 - MVP)**    | 34    |
 | **Phase 4 (US2)**          | 17    |
 | **Phase 5 (US3)**          | 8     |
 | **Phase 6 (US4)**          | 11    |
@@ -366,7 +369,7 @@ With multiple developers:
 
 ### MVP Scope
 
-- **Minimum viable**: Phase 1 + Phase 2 + Phase 3 (61 tasks)
+- **Minimum viable**: Phase 1 + Phase 2 + Phase 3 (64 tasks)
 - **Delivers**: Export from all 6 platforms on Chrome
 
 ### Independent Test Criteria

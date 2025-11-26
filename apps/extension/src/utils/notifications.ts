@@ -117,6 +117,18 @@ export async function showExportSuccess(filename: string): Promise<string> {
 }
 
 /**
+ * 顯示同時匯出通知
+ */
+export async function showConcurrentExportNotification(): Promise<string> {
+  return showNotification({
+    type: 'warning',
+    title: '匯出進行中',
+    message: '另一個匯出作業正在進行中。請等待完成後再試。',
+    timeout: 5000,
+  });
+}
+
+/**
  * 顯示部分提取警告
  */
 export async function showPartialExtractionWarning(
