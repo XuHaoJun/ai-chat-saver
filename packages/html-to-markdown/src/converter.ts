@@ -11,6 +11,7 @@ import { convertLists } from './rules/lists';
 import { convertTables } from './rules/tables';
 import { convertLinksAndImages } from './rules/links';
 import { convertTextFormatting, removeRemainingTags, cleanupOutput } from './rules/text';
+import { convertMath } from './rules/math';
 import type { ConvertOptions, ConversionResult } from './types';
 import { DEFAULT_OPTIONS } from './types';
 
@@ -74,36 +75,39 @@ export function htmlToMarkdown(html: string, options?: ConvertOptions): string {
   }
 
   // 轉換順序很重要：
-  // 1. 先處理程式碼區塊（避免內容被其他規則處理）
+  // 1. 先處理數學公式（必須在其他規則之前，避免 KaTeX HTML 被破壞）
+  result = convertMath(result, opts);
+
+  // 2. 處理程式碼區塊（避免內容被其他規則處理）
   result = convertCodeBlocks(result, opts);
 
-  // 2. 處理表格（結構化內容）
+  // 3. 處理表格（結構化內容）
   result = convertTables(result, opts);
 
-  // 3. 處理列表
+  // 4. 處理列表
   result = convertLists(result, opts);
 
-  // 4. 處理標題
+  // 5. 處理標題
   result = convertHeadings(result, opts);
 
-  // 5. 處理連結和圖片
+  // 6. 處理連結和圖片
   result = convertLinksAndImages(result, opts);
 
-  // 6. 處理行內程式碼（在連結處理後）
+  // 7. 處理行內程式碼（在連結處理後）
   result = convertInlineCode(result, opts);
 
-  // 7. 處理文字格式（粗體、斜體等）
+  // 8. 處理文字格式（粗體、斜體等）
   result = convertTextFormatting(result, opts);
 
-  // 8. 移除剩餘的 HTML 標籤
+  // 9. 移除剩餘的 HTML 標籤
   result = removeRemainingTags(result, opts);
 
-  // 9. 解碼 HTML 實體
+  // 10. 解碼 HTML 實體
   if (opts.decodeEntities) {
     result = decodeHtmlEntities(result);
   }
 
-  // 10. 清理輸出格式
+  // 11. 清理輸出格式
   result = cleanupOutput(result, opts);
 
   return result;
