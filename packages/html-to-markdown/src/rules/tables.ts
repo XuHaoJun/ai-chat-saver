@@ -34,7 +34,7 @@ export const convertTables: ConversionRule = (html) => {
       hasHeader = true;
       const headerRow = theadMatch[1].match(/<tr[^>]*>([\s\S]*?)<\/tr>/i);
       if (headerRow) {
-        const cells = headerRow[1].match(/<th[^>]*>[\s\S]*?<\/th>/gi) || [];
+        const cells = headerRow[1].match(/<t[hd][^>]*>[\s\S]*?<\/t[hd]>/gi) || [];
         rows.push(cells.map(extractCellContent));
       }
     }
