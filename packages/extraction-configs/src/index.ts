@@ -32,6 +32,7 @@ export { perplexityConfig } from './platforms/perplexity';
 export { phindConfig } from './platforms/phind';
 export { deepwikiConfig } from './platforms/deepwiki';
 export { geminiConfig } from './platforms/gemini';
+export { deepseekConfig } from './platforms/deepseek';
 
 import type { Platform } from '@ai-chat-saver/shared-types';
 import type { ExtractionConfig } from './types';
@@ -41,6 +42,7 @@ import { perplexityConfig } from './platforms/perplexity';
 import { phindConfig } from './platforms/phind';
 import { deepwikiConfig } from './platforms/deepwiki';
 import { geminiConfig } from './platforms/gemini';
+import { deepseekConfig } from './platforms/deepseek';
 
 /**
  * 所有平台設定的對應表
@@ -52,6 +54,7 @@ export const PLATFORM_CONFIGS: Record<Platform, ExtractionConfig> = {
   phind: phindConfig,
   deepwiki: deepwikiConfig,
   gemini: geminiConfig,
+  deepseek: deepseekConfig,
 };
 
 /**

@@ -9,7 +9,7 @@ import type { Message } from './message';
 /**
  * 支援的平台
  */
-export type Platform = 'chatgpt' | 'claude' | 'perplexity' | 'phind' | 'deepwiki' | 'gemini';
+export type Platform = 'chatgpt' | 'claude' | 'perplexity' | 'phind' | 'deepwiki' | 'gemini' | 'deepseek';
 
 /**
  * 平台顯示名稱對應
@@ -21,6 +21,7 @@ export const PLATFORM_DISPLAY_NAMES: Record<Platform, string> = {
   phind: 'Phind',
   deepwiki: 'deepwiki',
   gemini: 'Gemini',
+  deepseek: 'DeepSeek',
 };
 
 /**

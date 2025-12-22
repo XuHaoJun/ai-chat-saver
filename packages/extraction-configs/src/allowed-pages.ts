@@ -16,6 +16,7 @@ export const EXTRACTION_ALLOWED_PAGES: Record<Platform, string[]> = {
   phind: ['phind.com/search', 'phind.com/agent'],
   deepwiki: ['deepwiki.com/'],
   gemini: ['gemini.google.com/app/', 'gemini.google.com/u/'],
+  deepseek: ['chat.deepseek.com/a/chat/s/'],
 };
 
 /**

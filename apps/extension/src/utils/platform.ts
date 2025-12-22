@@ -18,6 +18,7 @@ export const SUPPORTED_PLATFORMS: Platform[] = [
   'phind',
   'deepwiki',
   'gemini',
+  'deepseek',
 ];
 
 /**
@@ -74,6 +75,7 @@ export function getPlatformDisplayName(platform: Platform): string {
     phind: 'Phind',
     deepwiki: 'deepwiki',
     gemini: 'Gemini',
+    deepseek: 'DeepSeek',
   };
 
   return displayNames[platform] || platform;

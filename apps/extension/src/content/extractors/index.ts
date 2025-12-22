@@ -16,6 +16,7 @@ import { PerplexityExtractor } from './perplexity';
 import { PhindExtractor } from './phind';
 import { DeepwikiExtractor } from './deepwiki';
 import { GeminiExtractor } from './gemini';
+import { DeepSeekExtractor } from './deepseek';
 
 /**
  * 提取器註冊表
@@ -27,6 +28,7 @@ const extractorRegistry: Record<Platform, BaseExtractor> = {
   phind: new PhindExtractor(),
   deepwiki: new DeepwikiExtractor(),
   gemini: new GeminiExtractor(),
+  deepseek: new DeepSeekExtractor(),
 };
 
 /**
@@ -63,6 +65,7 @@ export { PerplexityExtractor } from './perplexity';
 export { PhindExtractor } from './phind';
 export { DeepwikiExtractor } from './deepwiki';
 export { GeminiExtractor } from './gemini';
+export { DeepSeekExtractor } from './deepseek';
 
 // 匯出基礎工具
 export type { BaseExtractor } from './base';
