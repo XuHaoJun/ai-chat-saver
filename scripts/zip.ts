@@ -61,8 +61,12 @@ async function createZip(browser: Browser): Promise<void> {
 
 /**
  * 取得版本號
+ * 優先使用 GITHUB_REF_NAME 環境變數（例如 "v0.1.1"），
+ * 本地執行時 fallback 到 apps/extension/package.json。
  */
 function getVersion(): string {
+  const refName = process.env.GITHUB_REF_NAME;
+  if (refName?.startsWith('v')) return refName.slice(1);
   const packagePath = path.resolve(__dirname, '../apps/extension/package.json');
   const packageJson = JSON.parse(fs.readFileSync(packagePath, 'utf-8'));
   return packageJson.version;
