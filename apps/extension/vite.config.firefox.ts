@@ -3,6 +3,13 @@ import react from '@vitejs/plugin-react';
 import { resolve } from 'path';
 import * as fs from 'fs';
 
+function getVersion(): string {
+  const refName = process.env.GITHUB_REF_NAME;
+  if (refName?.startsWith('v')) return refName.slice(1);
+  const pkg = JSON.parse(fs.readFileSync(resolve(__dirname, 'package.json'), 'utf-8'));
+  return pkg.version;
+}
+
 /**
  * 產生 Firefox Manifest V2 的 Vite 插件
  */
@@ -14,7 +21,7 @@ function generateFirefoxManifestPlugin(): Plugin {
       const manifest = {
         manifest_version: 2,
         name: 'AI Chat Saver',
-        version: '0.1.0',
+        version: getVersion(),
         description:
           '從 ChatGPT、Claude、Perplexity、deepwiki、Gemini、Phind 匯出對話為 Markdown 檔案',
         icons: {
