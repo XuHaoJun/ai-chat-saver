@@ -44,6 +44,16 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Get version from tag
+        id: get_version
+        run: echo "version=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
+
+      - name: Update version in manifest and package.json
+        run: |
+          VERSION=${{ steps.get_version.outputs.version }}
+          jq --arg v "$VERSION" '.version = $v' apps/extension/manifest.json > tmp.json && mv tmp.json apps/extension/manifest.json
+          jq --arg v "$VERSION" '.version = $v' apps/extension/package.json > tmp.json && mv tmp.json apps/extension/package.json
+
       - name: Build Chrome extension
         run: pnpm build:chrome
 
@@ -52,10 +62,6 @@ jobs:
 
       - name: Create release archives
         run: pnpm zip:all
-
-      - name: Get version from tag
-        id: get_version
-        run: echo "version=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
 
       - name: Create GitHub release
         uses: softprops/action-gh-release@v2
